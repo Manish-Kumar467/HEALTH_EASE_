@@ -21,7 +21,7 @@
     "pg": "^8.13.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.mjs"
   },
   "keywords": []
 }
