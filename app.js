@@ -8,6 +8,7 @@
 // import session from "express-session";
 // import dotenv from "dotenv";
 // import path from "path";
+// checking using common js method 
 const express = require("express");
 const bodyParser = require("body-parser");
 const pg = require("pg");
