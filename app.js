@@ -1,14 +1,3 @@
-// import express from "express";
-// import bodyParser from "body-parser";
-// import pg from "pg";
-// import bcrypt from "bcrypt";
-// import passport from "passport";
-// import { Strategy as LocalStrategy } from "passport-local";
-// import GoogleStrategy from "passport-google-oauth2";
-// import session from "express-session";
-// import dotenv from "dotenv";
-// import path from "path";
-// checking using common js method 
 const express = require("express");
 const bodyParser = require("body-parser");
 const pg = require("pg");
@@ -51,11 +40,11 @@ app.use(
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // Ensure correct path
+app.use(express.static(path.join(__dirname, 'public'))); // Ensure correct path for static files
 
 // View Engine Setup
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "views")); // Ensure views directory is correctly set
 
 // Passport Initialization
 app.use(passport.initialize());
@@ -64,7 +53,7 @@ app.use(passport.session());
 // Routes
 
 app.get("/", (req, res) => {
-  res.render("home.ejs");
+  res.render("home.ejs"); // Render home page
 });
 
 app.get("/login", (req, res) => {
@@ -72,27 +61,27 @@ app.get("/login", (req, res) => {
     req.query.error === "already_registered"
       ? "This email is already registered. Please login."
       : null;
-  res.render("login.ejs", { errorMessage });
+  res.render("login.ejs", { errorMessage }); // Render login page with error message if any
 });
 
 app.get("/register", (req, res) => {
-  res.render("register.ejs");
+  res.render("register.ejs"); // Render register page
 });
 
 app.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
-      return next(err);
+      return next(err); // Handle logout error
     }
-    res.redirect("/");
+    res.redirect("/"); // Redirect to home after logout
   });
 });
 
 app.get("/success", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("index.ejs");
+    res.render("index.ejs"); // Render index page if authenticated
   } else {
-    res.redirect("/login");
+    res.redirect("/login"); // Redirect to login if not authenticated
   }
 });
 
@@ -101,8 +90,8 @@ app.get("/success", (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/success",
-    failureRedirect: "/login",
+    successRedirect: "/success", // Redirect to success page on login success
+    failureRedirect: "/login", // Redirect to login page on failure
   })
 );
 
@@ -117,9 +106,9 @@ app.post("/register", async (req, res) => {
     );
 
     if (checkResult.rows.length > 0) {
-      res.redirect("/login?error=already_registered");
+      res.redirect("/login?error=already_registered"); // Redirect if email is already registered
     } else {
-      const hash = await bcrypt.hash(password, saltRounds);
+      const hash = await bcrypt.hash(password, saltRounds); // Hash the password
       const result = await db.query(
         "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
         [email, hash]
@@ -127,20 +116,19 @@ app.post("/register", async (req, res) => {
       const user = result.rows[0];
       req.login(user, (err) => {
         if (err) {
-          console.error("Login error:", err);
+          console.error("Login error:", err); // Log login errors
           return res.redirect("/login");
         }
-        res.redirect("/success");
+        res.redirect("/success"); // Redirect to success page after registration
       });
     }
   } catch (err) {
-    console.error(err);
-    res.redirect("/register");
+    console.error(err); // Log any errors
+    res.redirect("/register"); // Redirect to register on error
   }
 });
 
 // Passport Local Strategy
-
 passport.use(
   "local",
   new LocalStrategy(async (username, password, done) => {
@@ -151,9 +139,9 @@ passport.use(
       );
       if (result.rows.length > 0) {
         const user = result.rows[0];
-        const valid = await bcrypt.compare(password, user.password);
+        const valid = await bcrypt.compare(password, user.password); // Compare passwords
         if (valid) {
-          return done(null, user);
+          return done(null, user); // Successful login
         } else {
           return done(null, false, { message: "Incorrect password." });
         }
@@ -167,7 +155,6 @@ passport.use(
 );
 
 // Passport Google Strategy
-
 passport.use(
   "google",
   new GoogleStrategy(
@@ -186,7 +173,7 @@ passport.use(
         if (result.rows.length === 0) {
           const newUser = await db.query(
             "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
-            [profile.email, "google"]
+            [profile.email, "google"] // Dummy password for Google users
           );
           return done(null, newUser.rows[0]);
         } else {
@@ -200,43 +187,39 @@ passport.use(
 );
 
 // Passport Serialize/Deserialize
-
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.id); // Serialize user ID
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    done(null, result.rows[0]);
+    done(null, result.rows[0]); // Deserialize user from ID
   } catch (err) {
     done(err, null);
   }
 });
 
 // Google Auth Routes
-
 app.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", { scope: ["profile", "email"] }) // Authenticate with Google
 );
 
 app.get(
   "/auth/google/success",
   passport.authenticate("google", {
-    successRedirect: "/success",
-    failureRedirect: "/login",
+    successRedirect: "/success", // Redirect on success
+    failureRedirect: "/login", // Redirect on failure
   })
 );
 
 // 404 Handler
-
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html")); // Serve 404 page
 });
 
 // Start Server
-
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`); // Log server status
 });
