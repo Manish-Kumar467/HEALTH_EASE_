@@ -1,24 +1,24 @@
-// import express from "express";
-// import bodyParser from "body-parser";
-// import pg from "pg";
-// import bcrypt from "bcrypt";
-// import passport from "passport";
-// import { Strategy as LocalStrategy } from "passport-local";
-// import GoogleStrategy from "passport-google-oauth2";
-// import session from "express-session";
-// import dotenv from "dotenv";
-// import path from "path";
+import express from "express";
+import bodyParser from "body-parser";
+import pg from "pg";
+import bcrypt from "bcrypt";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import GoogleStrategy from "passport-google-oauth2";
+import session from "express-session";
+import dotenv from "dotenv";
+import path from "path";
 // checking using common js method 
-const express = require("express");
-const bodyParser = require("body-parser");
-const pg = require("pg");
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
-const session = require("express-session");
-const dotenv = require("dotenv");
-const path = require("path");
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const pg = require("pg");
+// const bcrypt = require("bcrypt");
+// const passport = require("passport");
+// const LocalStrategy = require("passport-local").Strategy;
+// const GoogleStrategy = require("passport-google-oauth2").Strategy;
+// const session = require("express-session");
+// const dotenv = require("dotenv");
+// const path = require("path");
 
 dotenv.config();
 
