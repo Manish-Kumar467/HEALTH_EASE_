@@ -68,6 +68,11 @@ app.get("/register", (req, res) => {
   res.render("register.ejs"); // Render register page
 });
 
+app.get("/views/dignose", (req, res) => {
+    res.render("dignose.ejs"); // or the appropriate rendering method
+});
+
+
 app.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
