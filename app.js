@@ -40,7 +40,7 @@ app.use(
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // Ensure correct path for static files
+app.use(express.static(path.join(__dirname, "public"))); // Ensure correct path for static files
 
 // View Engine Setup
 app.set("view engine", "ejs");
