@@ -95,6 +95,15 @@
             width: 100vw; /* Full width on mobile */
         }
     }
+    .maincontent{
+        display:flex;
+        flex-direction: column;
+        gap:10px;
+    }
+    .diagnosebtn{
+        display:flex;
+        justify-content: center;
+    }
 </style>
 <body>
     <!-- Header Section -->
@@ -134,6 +143,57 @@
         </div>
     </nav>
 
+    <div class="maincontent">
+        <label for="SKIN">General Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Skin-Related Symptoms:</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Respiratory-Related Symptoms:</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Digestive-Related Symptoms:</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Head and Neck-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN"> Eyes-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN"> Ears-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Mouth and Throat-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Neurological-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+        </select>
+        <label for="SKIN">Urinary-Related Symptoms</label>
+        <select class="dropdown">
+            <option></option>
+
+        </select>
+
+        
+        <div class="diagnosebtn">
+        <button id="diagnosebtn" class="diagnosebtn btn btn-success">Diagnose</button>
+    </div>
+    <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
+        
+    </div>
+
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="sidebar-content">
@@ -163,23 +223,55 @@
         </div>
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div> -->
+    <script>
+     // Assuming you have a function that returns the predicted disease
+// Assuming you have a function that returns the predicted disease
+function getPredictedDisease() {
+    // Replace this with your actual logic to get the predicted disease
+    return "Example Disease"; // Placeholder for the predicted disease
+}
+
+// Adding event listener to the diagnose button
+document.getElementsByClassName("diagnosebtn")[0].addEventListener("click", function() {
+    // Get the predicted disease
+    var predictedDisease = getPredictedDisease();
+
+    // Create a message to display
+    var message = "The predicted disease is: " + predictedDisease;
+
+    // Get the result div
+    var resultDiv = document.getElementById("result");
+    resultDiv.innerHTML="<h1>RESULTS</h1>";
+    
+    // Update the text content of the result div
+     // Set the message
+
+    // Make the result div visible
+    resultDiv.style.display = "block"; // Show the result panel
+
+    // Optionally, you can style the result
+    resultDiv.style.color = "black"; // Change text color
+    resultDiv.style.fontWeight = "bold"; // Make text bold
+});
+
+     
+         document.getElementById("profile-link").addEventListener("click", function() {
+             document.getElementById("mySidebar").classList.toggle("open");
+             document.body.classList.toggle("sidebar-open");
+             document.body.style.overflowX = document.body.classList.contains("sidebar-open") ? "auto" : "hidden"; // Show horizontal scrollbar when sidebar is open
+         });
+     
+         function closeNav() {
+             document.getElementById("mySidebar").classList.remove("open");
+             document.body.classList.remove("sidebar-open");
+             document.body.style.overflowX = "hidden"; // Hide horizontal scrollbar when sidebar is closed
+         }
+     
+         function scrollToTop() {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+         }
+     </script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-<script>
-    document.getElementById("profile-link").addEventListener("click", function() {
-        document.getElementById("mySidebar").classList.toggle("open");
-        document.body.classList.toggle("sidebar-open");
-        document.body.style.overflowX = document.body.classList.contains("sidebar-open") ? "auto" : "hidden"; // Show horizontal scrollbar when sidebar is open
-    });
 
-    function closeNav() {
-        document.getElementById("mySidebar").classList.remove("open");
-        document.body.classList.remove("sidebar-open");
-        document.body.style.overflowX = "hidden"; // Hide horizontal scrollbar when sidebar is closed
-    }
-
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
