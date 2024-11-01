@@ -1,5 +1,5 @@
 Necessary:
-Logout button route
+Logout button route(DONE)
 
 Home page button route 
 
@@ -16,4 +16,10 @@ And side panel of profile should show user info in placeholder if added earlier.
 
 Extra :
 making logo click also take to home 
+
+getting the fonts of navbar and other place corrected 
+
+improving the frontend 
+
+adding picture of user 
 

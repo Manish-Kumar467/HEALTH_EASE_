@@ -90,6 +90,11 @@ app.get("/success", (req, res) => {
   }
 });
 
+// on clicking the home button on navbar
+app.get("/start", (req, res) => {
+  res.render("index.ejs");
+})
+
 // Authentication Routes
 
 app.post(
