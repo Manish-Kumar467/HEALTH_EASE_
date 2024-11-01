@@ -1,0 +1,19 @@
+Necessary:
+Logout button route
+
+Home page button route 
+
+Making table for saving user Profile(name, sex, dob, age, location) and in same or different table save disease diagonse info
+(which symptoms , disease)
+
+Disease dignose page , think how to add the disease for selection (URGENT)
+
+Flask task on integrating to show result for the input (URGENT)
+
+Profile page which shows the user info. and null if new user
+
+And side panel of profile should show user info in placeholder if added earlier.
+
+Extra :
+making logo click also take to home 
+
