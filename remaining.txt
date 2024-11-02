@@ -25,3 +25,8 @@ improving the frontend
 
 adding picture of user 
 
+appointment scheduling 
+
+disease discription, exercise, food 
+
+disclaimer message to visit doctor for medications
