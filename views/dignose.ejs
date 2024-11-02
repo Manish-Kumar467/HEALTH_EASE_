@@ -106,10 +106,17 @@
     }
 </style>
 <body>
-    <!-- Navbar section  -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary"></nav>
+    
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>DISEASE DIAGNOSIS SUPPORT SYSTEM</h1>
+        <h2>powered by AI</h2>
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease</a>
+            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png"  alt="lungs-icon" width="30px" height="30px"> Health-Ease</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -119,24 +126,15 @@
                         <a class="nav-link active" aria-current="page" href="/start">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" id="profile-link">Profile</a>
+                        <a class="nav-link" href="#" id="profile-link">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#about-section">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#footer-section">Help</a>
+                        <a class="nav-link" href="/views/dignose">DiseaseDiagnosis</a>
                     </li>
                 </ul>
-               
-                    <button class="btn btn-outline-success" type="submit">
-                      <a class="nav-link" href="/logout">LogOut</a>
-                  </button>
-                
+                <form class="d-flex" role="search">
+                    <button class="btn btn-outline-success" type="submit"><a class="nav-link" href="/logout">LogOut</a></button>
+                </form>
             </div>
         </div>
     </nav>
@@ -177,43 +175,6 @@
               </form>
         </div>
     </div>
-
-    <!-- Header Section -->
-    <div class="header">
-        <h1>DISEASE DIAGNOSIS SUPPORT SYSTEM</h1>
-        <h2>powered by AI</h2>
-    </div>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png"  alt="lungs-icon" width="30px" height="30px"> Health-Ease</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="profile-link">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="diagnose.html">DiseaseDiagnosis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about-section">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#footer-section">Help</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <button class="btn btn-outline-success" type="submit"><a class="nav-link" href="login.html">LogOut</a></button>
-                </form>
-            </div>
-        </div>
-    </nav>
 
     <div class="maincontent">
         <label for="SKIN">General Symptoms</label>
