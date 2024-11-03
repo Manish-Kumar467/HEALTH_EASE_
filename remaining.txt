@@ -6,7 +6,7 @@ Home page button route and disease page navbar and about, contact button correct
 Making table for saving user Profile(name, sex, dob, age, location) and in same or different table save disease diagonse info
 (which symptoms , disease) (DONE)
 
-Disease dignose page , think how to add the disease for selection (URGENT)
+Disease dignose page , think how to add the disease for selection (URGENT) correct the dropdown method and method of selection.
 
 Flask task on integrating to show result for the input (URGENT)
 
@@ -19,7 +19,7 @@ correcting the footer links
 Extra :
 making logo click also take to home 
 
-getting the fonts of navbar and other place corrected 
+getting the fonts of navbar and other place(dignose page and other) corrected 
 
 improving the frontend 
 

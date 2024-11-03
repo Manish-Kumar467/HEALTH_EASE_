@@ -6,108 +6,118 @@
     <title>Diagnose your disease</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<style>
-    body {
-        background: radial-gradient(circle, #d0f7d4, #a8e6e0);
-        margin: 0;
-        padding-top: 15vh; /* Adds space for the fixed navbar */
-        overflow-x: hidden; /* Prevent horizontal scroll */
-    }
 
-    .header {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .header h1 {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .header h2 {
-        font-weight: 500;
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
-
-    .navbar {
-        --bs-navbar-padding-y: 0px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-    }
-
-    .container-fluid {
-        background: linear-gradient(to right, #d3f6f9, #a1e4a6);
-        background-size: cover;
-        height: 15vh;
-    }
-
-    .sidebar {
-        height: 100%;
-        width: 30vw; /* Sidebar width */
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: radial-gradient(circle, #d0f7d4, #a8e6e0); /* Match the body background */
-        overflow-x: hidden;
-        transition: transform 0.3s ease;
-        padding-top: 60px;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        transform: translateX(-100%); /* Start hidden */
-    }
-
-    .sidebar.open {
-        transform: translateX(0); /* Show sidebar */
-    }
-
-    .sidebar-content {
-        padding: 20px;
-    }
-
-    .sidebar .closebtn {
-        position: absolute;
-        top: 10px;
-        right: 25px;
-        font-size: 36px;
-        cursor: pointer;
-    }
-
-    .sidebar-open .container-wrapper {
-        margin-left: 30vw; /* Shift content when sidebar is open */
-    }
-
-    @media (max-width: 768px) {
-        .container-wrapper, .about-container, .footer-container {
-            width: 100%; /* Full width on mobile */
-            padding: 10px;
+    <style>
+        body {
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+            margin: 0;
+            padding-top: 15vh; /* Adds space for the fixed navbar */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
-
-        .sidebar-open .container-wrapper {
-            margin-left: 0; /* Adjust for mobile view */
-        }
-
-        .sidebar {
-            width: 100vw; /* Full width on mobile */
-        }
-    }
-    .maincontent{
-        display:flex;
-        flex-direction: column;
-        gap:10px;
-    }
-    .diagnosebtn{
-        display:flex;
-        justify-content: center;
-    }
-</style>
-<body>
     
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+    
+        .header h1 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    
+        .header h2 {
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+    
+        .navbar {
+            --bs-navbar-padding-y: 0px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+    
+        .container-fluid {
+            background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+            background-size: cover;
+            height: 15vh;
+        }
+    
+        .sidebar {
+            height: 100%;
+            width: 30vw; /* Sidebar width */
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0); /* Match the body background */
+            overflow-x: hidden;
+            transition: transform 0.3s ease;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(-100%); /* Start hidden */
+        }
+    
+        .sidebar.open {
+            transform: translateX(0); /* Show sidebar */
+        }
+    
+        .sidebar-content {
+            padding: 20px;
+        }
+    
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            cursor: pointer;
+        }
+    
+        .sidebar-open .container-wrapper {
+            margin-left: 30vw; /* Shift content when sidebar is open */
+        }
+    
+        @media (max-width: 768px) {
+            .container-wrapper, .about-container, .footer-container {
+                width: 100%; /* Full width on mobile */
+                padding: 10px;
+            }
+    
+            .sidebar-open .container-wrapper {
+                margin-left: 0; /* Adjust for mobile view */
+            }
+    
+            .sidebar {
+                width: 100vw; /* Full width on mobile */
+            }
+        }
+        .maincontent{
+            display:flex;
+            flex-direction: column;
+            gap:10px;
+        }
+        .diagnosebtn{
+            display:flex;
+            justify-content: center;
+        }
+        .dropdown {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .selected-symptoms {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+    </style>
+</head>
 
+<body>
     <!-- Header Section -->
     <div class="header">
         <h1>DISEASE DIAGNOSIS SUPPORT SYSTEM</h1>
@@ -161,24 +171,21 @@
                     <label for="DOB">Date of Birth(DOB):</label>
                     <input type="DOB" class="form-control" id="DOB" placeholder="Enter your Date of birth(dd/mm/yy)">
                 </div>
-                <!-- <div class="form-group">
-                    <label for="address">Date of Birth(DOB):</label>
-                    <input type="address" class="form-control" id="address" placeholder="Select your state">
-                </div> -->
                 <div class="form-group">
-                  <label for="address">Enter Your State</label>
-                <select id="stateDropdown" class="form-select" fdprocessedid="ui6vav"><option value="">Select State</option><option value="35">Andaman And Nicobar Islands</option><option value="28">Andhra Pradesh</option><option value="12">Arunachal Pradesh</option><option value="18">Assam</option><option value="10">Bihar</option><option value="4">Chandigarh</option><option value="22">Chhattisgarh</option><option value="7">Delhi</option><option value="30">Goa</option><option value="24">Gujarat</option><option value="6">Haryana</option><option value="2">Himachal Pradesh</option><option value="1">Jammu And Kashmir</option><option value="20">Jharkhand</option><option value="29">Karnataka</option><option value="32">Kerala</option><option value="37">Ladakh</option><option value="31">Lakshadweep</option><option value="23">Madhya Pradesh</option><option value="27">Maharashtra</option><option value="14">Manipur</option><option value="17">Meghalaya</option><option value="15">Mizoram</option><option value="13">Nagaland</option><option value="21">Odisha</option><option value="34">Puducherry</option><option value="3">Punjab</option><option value="8">Rajasthan</option><option value="11">Sikkim</option><option value="33">Tamil Nadu</option><option value="36">Telangana</option><option value="38">The Dadra And Nagar Haveli And Daman And Diu</option><option value="16">Tripura</option><option value="9">Uttar Pradesh</option><option value="5">Uttarakhand</option><option value="19">West Bengal</option></select>
-</div>
-<div style="padding:10px">
-                <button type="submit" class="btn btn-success">Save Profile</button>
-              </div>
+                    <label for="address">Enter Your State</label>
+                    <select id="stateDropdown" class="form-select" fdprocessedid="ui6vav"><option value="">Select State</option><option value="35">Andaman And Nicobar Islands</option><option value="28">Andhra Pradesh</option><option value="12">Arunachal Pradesh</option><option value="18">Assam</option><option value="10">Bihar</option><option value="4">Chandigarh</option><option value="22">Chhattisgarh</option><option value="7">Delhi</option><option value="30">Goa</option><option value="24">Gujarat</option><option value="6">Haryana</option><option value="2">Himachal Pradesh</option><option value="1">Jammu And Kashmir</option><option value="20">Jharkhand</option><option value="29">Karnataka</option><option value="32">Kerala</option><option value="37">Ladakh</option><option value="31">Lakshadweep</option><option value="23">Madhya Pradesh</option><option value="27">Maharashtra</option><option value="14">Manipur</option><option value="17">Meghalaya</option><option value="15">Mizoram</option><option value="13">Nagaland</option><option value="21">Odisha</option><option value="34">Puducherry</option><option value="3">Punjab</option><option value="8">Rajasthan</option><option value="11">Sikkim</option><option value="33">Tamil Nadu</option><option value="36">Telangana</option><option value="38">The Dadra And Nagar Haveli And Daman And Diu</option><option value="16">Tripura</option><option value="9">Uttar Pradesh</option><option value="5">Uttarakhand</option><option value="19">West Bengal</option></select>
+                </div>
+                <div style="padding:10px">
+                    <button type="submit" class="btn btn-success">Save Profile</button>
+                </div>
               </form>
         </div>
     </div>
 
     <div class="maincontent">
-        <label for="Skin">Skin-related Symptoms</label>
-        <select name="Skin" multiple>
+        <form id="diagnosisForm" action="/dignose" method="POST">
+        <label for="symptomsType1">Skin-related Symptoms</label>
+        <select id="symptomsType1" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="itching">itching</option>
             <option value="skin_rash">skin_rash</option>
             <option value="nodal_skin_eruptions">nodal_skin_eruptions</option>
@@ -193,15 +200,15 @@
             <option value="red_sore_around_nose">red_sore_around_nose</option>
             <option value="yellow_crust_ooze">yellow_crust_ooze</option>
         </select>
-        <label for="Eye">Eye-Related Symptoms:</label>
-        <select name="Eye" multiple>
+        <label for="symptomsType2">Eye-Related Symptoms:</label>
+        <select id="symptomsType2" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="blurred_and_distorted_vision">blurred_and_distorted_vision</option>
             <option value="redness_of_eyes">redness_of_eyes</option>
             <option value="watering_from_eyes">watering_from_eyes</option>
             <option value="yellowing_of_eyes">yellowing_of_eyes</option>
         </select>
-        <label for="Respiratory">Respiratory-Related Symptoms:</label>
-        <select name="Respiratory" multiple>
+        <label for="symptomsType3">Respiratory-Related Symptoms:</label>
+        <select id="symptomsType3" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="continuous_sneezing">continuous_sneezing</option>
             <option value="breathlessness">breathlessness</option>
             <option value="cough">cough</option>
@@ -209,8 +216,8 @@
             <option value="phlegm">phlegm</option>
             <option value="runny_nose">runny_nose</option>
         </select>
-        <label for="Digestive">Digestive-Related Symptoms:</label>
-        <select name="Digestive" multiple>
+        <label for="symptomsType4">Digestive-Related Symptoms:</label>
+        <select id="symptomsType4" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="stomach_pain">stomach_pain</option>
             <option value="acidity">acidity</option>
             <option value="ulcers_on_tongue">ulcers_on_tongue</option>
@@ -225,8 +232,8 @@
             <option value="excessive_hunger">excessive_hunger</option>
             <option value="swelling_of_stomach">swelling_of_stomach</option>
         </select>
-        <label for="Joint_and_Muscle">Joint and Muscle-Related Symptoms</label>
-        <select name="Joint_and_Muscle" multiple>
+        <label for="symptomsType5">Joint and Muscle-Related Symptoms</label>
+        <select id="symptomsType5" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="joint_pain">joint_pain</option>
             <option value="muscle_wasting">muscle_wasting</option>
             <option value="muscle_pain">muscle_pain</option>
@@ -234,8 +241,8 @@
             <option value="swelling_joints">swelling_joints</option>
             <option value="back_pain">back_pain</option>
         </select>
-        <label for="Neurological"> Neurological-Related Symptoms</label>
-        <select name="Neurological" multiple>
+        <label for="symptomsType6"> Neurological-Related Symptoms</label>
+        <select id="symptomsType6" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="headache">headache</option>
             <option value="dizziness">dizziness</option>
             <option value="lack_of_concentration">lack_of_concentration</option>
@@ -246,9 +253,10 @@
             <option value="altered_sensorium">altered_sensorium</option>
             <option value="slurred_speech">slurred_speech</option>
             <option value="loss_of_balance">loss_of_balance</option>
+            
         </select>
-        <label for="General"> General Symptoms</label>
-        <select name="General" multiple>
+        <label for="symptomsType7"> General Symptoms</label>
+        <select id="symptomsType7" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fatigue">fatigue</option>
             <option value="weight_loss">weight_loss</option>
             <option value="weight_gain">weight_gain</option>
@@ -264,46 +272,28 @@
             <option value="bruising">bruising</option>
             <option value="high_fever">high_fever</option>
         </select>
-        <label for="Circulatory">Circulatory System-Related Symptoms</label>
-        <select name="Circulatory" multiple>
+        <label for="symptomsType8">Circulatory System-Related Symptoms</label>
+        <select id="symptomsType8" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fast_heart_rate">fast_heart_rate</option>
             <option value="palpitations">palpitations</option>
         </select>
-        <label for="Urinary">Urinary-Related Symptoms</label>
-        <select name="Urinary" multiple>
+        <label for="symptomsType9">Urinary-Related Symptoms</label>
+        <select id="symptomsType9" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="burning_micturition">burning_micturition</option>
             <option value="continuous_feel_of_urine">continuous_feel_of_urine</option>
             <option value="bladder_discomfort">bladder_discomfort</option>
         </select>
+        <!-- Text field -->
+        <h1>Diagnose Symptoms</h1>
+        <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
 
-        
+
+
         <div class="diagnosebtn">
-        <button id="diagnosebtn" class="diagnosebtn btn btn-success">Diagnose</button>
-    </div>
-    <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
-        
-    </div>
-
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="sidebar-content">
-            <h2>Profile</h2>
-            <form>
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-                </div>
-                <button type="submit" class="btn btn-primary">Save Profile</button>
-            </form>
+            <button type="button" id="diagnosebtn" class="diagnosebtn btn btn-success" onclick="submitDiagnosis()">Diagnose</button>
         </div>
+        </form>
+        <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
     </div>
 
     <!-- <div id="footer-section" class="footer-container text-center">
@@ -314,35 +304,65 @@
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div> -->
     <script>
+        const selectedSymptoms = new Set();
+
+        function updateSelectedSymptoms() {
+            // Clear the current symptoms list
+            selectedSymptoms.clear();
+
+            // Get all symptom select elements
+            const symptomSelects = document.querySelectorAll('select[multiple]');
+
+            symptomSelects.forEach(select => {
+                const selectedOptions = Array.from(select.selectedOptions);
+                selectedOptions.forEach(option => {
+                    selectedSymptoms.add(option.value);
+                });
+            });
+
+            // Display the selected symptoms
+            const selectedSymptomsList = document.getElementById('selectedSymptomsList');
+            selectedSymptomsList.innerHTML = Array.from(selectedSymptoms).join(', ');
+        }
+
+
+
+        // Function to submit the diagnosis (example functionality)
+        function submitDiagnosis() {
+        const symptoms = document.getElementById('selectedSymptoms').value;
+        alert('Diagnosing based on symptoms: ' + symptoms);
+        // Add your form submission or AJAX request here
+        }
+
      // Assuming you have a function that returns the predicted disease
-// Assuming you have a function that returns the predicted disease
-function getPredictedDisease() {
-    // Replace this with your actual logic to get the predicted disease
-    return "Example Disease"; // Placeholder for the predicted disease
-}
+    // Assuming you have a function that returns the predicted disease
+//     function getPredictedDisease() {
+//         // Replace this with your actual logic to get the predicted disease
+//         return "Example Disease"; // Placeholder for the predicted disease
+//     }
 
-// Adding event listener to the diagnose button
-document.getElementsByClassName("diagnosebtn")[0].addEventListener("click", function() {
-    // Get the predicted disease
-    var predictedDisease = getPredictedDisease();
+//     // Adding event listener to the diagnose button
+//     document.getElementsByClassName("diagnosebtn")[0].addEventListener("click", function() {
+//     // Get the predicted disease
+//     var predictedDisease = getPredictedDisease();
 
-    // Create a message to display
-    var message = "The predicted disease is: " + predictedDisease;
+//     // Create a message to display
+//     var message = "The predicted disease is: " + predictedDisease;
 
-    // Get the result div
-    var resultDiv = document.getElementById("result");
-    resultDiv.innerHTML="<h1>RESULTS</h1>";
+//     // Get the result div
+//     var resultDiv = document.getElementById("result");
+//     resultDiv.innerHTML="<h1>RESULTS</h1>";
     
-    // Update the text content of the result div
-     // Set the message
+//     // Update the text content of the result div
+//      // Set the message
 
-    // Make the result div visible
-    resultDiv.style.display = "block"; // Show the result panel
+//     // Make the result div visible
+//     resultDiv.style.display = "block"; // Show the result panel
 
-    // Optionally, you can style the result
-    resultDiv.style.color = "black"; // Change text color
-    resultDiv.style.fontWeight = "bold"; // Make text bold
-});
+//     // Optionally, you can style the result
+//     resultDiv.style.color = "black"; // Change text color
+//     resultDiv.style.fontWeight = "bold"; // Make text bold
+// });
 
      
          document.getElementById("profile-link").addEventListener("click", function() {
