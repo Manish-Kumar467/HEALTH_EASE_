@@ -197,8 +197,10 @@
         </div>
     </div>
 
-    <div class="maincontent">
-        <form id="diagnosisForm" action="/dignose" method="POST">
+   
+<div class="maincontent">
+    <form id="diagnosisForm" action="/diagnose" method="POST">
+        <!-- Skin-related Symptoms -->
         <label for="symptomsType1">Skin-related Symptoms</label>
         <select id="symptomsType1" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="itching">itching</option>
@@ -215,14 +217,18 @@
             <option value="red_sore_around_nose">red_sore_around_nose</option>
             <option value="yellow_crust_ooze">yellow_crust_ooze</option>
         </select>
-        <label for="symptomsType2">Eye-Related Symptoms:</label>
+
+        <!-- Eye-related Symptoms -->
+        <label for="symptomsType2">Eye-Related Symptoms</label>
         <select id="symptomsType2" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="blurred_and_distorted_vision">blurred_and_distorted_vision</option>
             <option value="redness_of_eyes">redness_of_eyes</option>
             <option value="watering_from_eyes">watering_from_eyes</option>
             <option value="yellowing_of_eyes">yellowing_of_eyes</option>
         </select>
-        <label for="symptomsType3">Respiratory-Related Symptoms:</label>
+
+        <!-- Respiratory-related Symptoms -->
+        <label for="symptomsType3">Respiratory-Related Symptoms</label>
         <select id="symptomsType3" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="continuous_sneezing">continuous_sneezing</option>
             <option value="breathlessness">breathlessness</option>
@@ -231,7 +237,9 @@
             <option value="phlegm">phlegm</option>
             <option value="runny_nose">runny_nose</option>
         </select>
-        <label for="symptomsType4">Digestive-Related Symptoms:</label>
+
+        <!-- Digestive-related Symptoms -->
+        <label for="symptomsType4">Digestive-Related Symptoms</label>
         <select id="symptomsType4" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="stomach_pain">stomach_pain</option>
             <option value="acidity">acidity</option>
@@ -247,8 +255,10 @@
             <option value="excessive_hunger">excessive_hunger</option>
             <option value="swelling_of_stomach">swelling_of_stomach</option>
         </select>
+
+        <!-- Joint and Muscle-related Symptoms -->
         <label for="symptomsType5">Joint and Muscle-Related Symptoms</label>
-        <select id="symptomsType5" class="dropdown" multiple >
+        <select id="symptomsType5" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="joint_pain">joint_pain</option>
             <option value="muscle_wasting">muscle_wasting</option>
             <option value="muscle_pain">muscle_pain</option>
@@ -256,7 +266,9 @@
             <option value="swelling_joints">swelling_joints</option>
             <option value="back_pain">back_pain</option>
         </select>
-        <label for="symptomsType6"> Neurological-Related Symptoms</label>
+
+        <!-- Neurological-related Symptoms -->
+        <label for="symptomsType6">Neurological-Related Symptoms</label>
         <select id="symptomsType6" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="headache">headache</option>
             <option value="dizziness">dizziness</option>
@@ -268,9 +280,10 @@
             <option value="altered_sensorium">altered_sensorium</option>
             <option value="slurred_speech">slurred_speech</option>
             <option value="loss_of_balance">loss_of_balance</option>
-            
         </select>
-        <label for="symptomsType7"> General Symptoms</label>
+
+        <!-- General Symptoms -->
+        <label for="symptomsType7">General Symptoms</label>
         <select id="symptomsType7" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fatigue">fatigue</option>
             <option value="weight_loss">weight_loss</option>
@@ -287,20 +300,35 @@
             <option value="bruising">bruising</option>
             <option value="high_fever">high_fever</option>
         </select>
+
+        <!-- Circulatory-related Symptoms -->
         <label for="symptomsType8">Circulatory System-Related Symptoms</label>
         <select id="symptomsType8" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fast_heart_rate">fast_heart_rate</option>
             <option value="palpitations">palpitations</option>
         </select>
+
+        <!-- Urinary-related Symptoms -->
         <label for="symptomsType9">Urinary-Related Symptoms</label>
         <select id="symptomsType9" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="burning_micturition">burning_micturition</option>
             <option value="continuous_feel_of_urine">continuous_feel_of_urine</option>
             <option value="bladder_discomfort">bladder_discomfort</option>
         </select>
-        <!-- Text field -->
-        <h1>Diagnose Symptoms</h1>
-        <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
+
+      
+
+ <!-- Text field -->
+ <h1>Diagnose Symptoms</h1>
+ <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
+
+
+
+
+
+
+
+
 
 
 
