@@ -72,6 +72,9 @@ app.get("/views/dignose", (req, res) => {
     res.render("dignose.ejs"); // or the appropriate rendering method
 });
 
+app.get("/help", (req, res) => {
+  res.render("help.ejs");
+})
 
 app.get("/logout", (req, res, next) => {
   req.logout(function (err) {

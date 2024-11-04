@@ -14,7 +14,7 @@ Profile page which shows the user info. and null if new user
 
 And side panel of profile should show user info in placeholder if added earlier.
 
-correcting the footer links
+correcting the footer links (DONE)
 
 Extra :
 making logo click also take to home 
