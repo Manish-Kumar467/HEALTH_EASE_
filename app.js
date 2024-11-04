@@ -72,6 +72,9 @@ app.get("/views/dignose", (req, res) => {
     res.render("dignose.ejs"); // or the appropriate rendering method
 });
 
+app.get("/help", (req, res) => {
+  res.render("help.ejs");
+})
 
 app.get("/logout", (req, res, next) => {
   req.logout(function (err) {
@@ -124,11 +127,13 @@ app.post("/register", async (req, res) => {
         [email, hash]
       );
       const user = result.rows[0];
+      
       req.login(user, (err) => {
         if (err) {
           console.error("Login error:", err); // Log login errors
           return res.redirect("/login");
         }
+        req.session.userId = user.id;
         res.redirect("/success"); // Redirect to success page after registration
       });
     }
@@ -137,6 +142,32 @@ app.post("/register", async (req, res) => {
     res.redirect("/register"); // Redirect to register on error
   }
 });
+
+// Route to handle profile update
+app.post('/updateProfile', async (req, res) => {
+  if (!req.session.userId) {
+      return res.status(401).send("Unauthorized");
+  }
+
+  const { name, sex, dob, location } = req.body;
+  const userId = req.session.userId;
+
+  try {
+      const query = `
+          UPDATE info 
+          SET name = $1, sex = $2, dob = $3, location = $4 
+          WHERE user_id = $5
+      `;
+      await pool.query(query, [name, sex, dob, location, userId]);
+
+      res.redirect('/index'); // Redirect or send success response
+  } catch (error) {
+      console.error("Error updating profile:", error);
+      res.status(500).send("An error occurred");
+  }
+});
+
+
 
 // Passport Local Strategy
 passport.use(
@@ -152,6 +183,7 @@ passport.use(
         const valid = await bcrypt.compare(password, user.password); // Compare passwords
         if (valid) {
           return done(null, user); // Successful login
+          req.session.userId = user.id;
         } else {
           return done(null, false, { message: "Incorrect password." });
         }
