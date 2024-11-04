@@ -159,9 +159,7 @@
 
 
         
-        <div class="diagnosebtn">
-        <button id="diagnosebtn" class="diagnosebtn btn btn-success">Diagnose</button>
-    </div>
+       
     <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
         
     </div>
@@ -321,29 +319,24 @@
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div> -->
     <script>
-        // Function to gather selected symptoms from all dropdowns
-    function updateSelectedSymptoms() {
-        // Get all dropdown elements
-        const dropdowns = document.querySelectorAll('.dropdown');
-        const symptomsList = document.getElementById('symptomsList');
-        
-        // Clear the current list
-        symptomsList.innerHTML = '';
+  function updateSelectedSymptoms() {
+  // Get all dropdown elements by class name
+  const dropdowns = document.querySelectorAll('.dropdown');
+  let selectedSymptoms = [];
 
-        // Loop through each dropdown and gather selected options
-        dropdowns.forEach(dropdown => {
-            Array.from(dropdown.selectedOptions).forEach(option => {
-                const listItem = document.createElement('li');
-                listItem.textContent = option.textContent; // Display symptom name
-                symptomsList.appendChild(listItem);
-            });
-        });
-    }
-
-    // Attach event listeners to each dropdown
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.addEventListener('change', updateSelectedSymptoms);
+  // Loop through each dropdown and collect selected options
+  dropdowns.forEach(dropdown => {
+    Array.from(dropdown.options).forEach(option => {
+      if (option.selected) {
+        selectedSymptoms.push(option.text);
+      }
     });
+  });
+
+  // Display the selected symptoms as comma-separated values in the textarea
+  document.getElementById('selectedSymptoms').value = selectedSymptoms.join(', ');
+}
+
 
         // Function to submit the diagnosis (example functionality)
         function submitDiagnosis() {
