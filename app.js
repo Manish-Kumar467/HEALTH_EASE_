@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); // 
 const bodyParser = require("body-parser");
 const pg = require("pg");
 const bcrypt = require("bcrypt");
@@ -89,6 +89,11 @@ app.get("/success", (req, res) => {
     res.redirect("/login"); // Redirect to login if not authenticated
   }
 });
+
+// on clicking the home button on navbar
+app.get("/start", (req, res) => {
+  res.render("index.ejs");
+})
 
 // Authentication Routes
 
