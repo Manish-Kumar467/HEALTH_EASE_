@@ -208,41 +208,43 @@ overflow-y: auto;
     </nav>
 
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="sidebar-content">
-            <h2>Profile</h2>
-            <form>
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label for="Sex">Sex:</label>
-                    <select type="email" class="form-control" id="Sex" placeholder="Select your Gender">
-                      <option value="">Select Gender</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Others</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="DOB">Date of Birth(DOB):</label>
-                    <input type="DOB" class="form-control" id="DOB" placeholder="Enter your Date of birth(dd/mm/yy)">
-                </div>
-                <!-- <div class="form-group">
-                    <label for="address">Date of Birth(DOB):</label>
-                    <input type="address" class="form-control" id="address" placeholder="Select your state">
-                </div> -->
-                <div class="form-group">
-                  <label for="address">Enter Your State</label>
-                <select id="stateDropdown" class="form-select" fdprocessedid="ui6vav"><option value="">Select State</option><option value="35">Andaman And Nicobar Islands</option><option value="28">Andhra Pradesh</option><option value="12">Arunachal Pradesh</option><option value="18">Assam</option><option value="10">Bihar</option><option value="4">Chandigarh</option><option value="22">Chhattisgarh</option><option value="7">Delhi</option><option value="30">Goa</option><option value="24">Gujarat</option><option value="6">Haryana</option><option value="2">Himachal Pradesh</option><option value="1">Jammu And Kashmir</option><option value="20">Jharkhand</option><option value="29">Karnataka</option><option value="32">Kerala</option><option value="37">Ladakh</option><option value="31">Lakshadweep</option><option value="23">Madhya Pradesh</option><option value="27">Maharashtra</option><option value="14">Manipur</option><option value="17">Meghalaya</option><option value="15">Mizoram</option><option value="13">Nagaland</option><option value="21">Odisha</option><option value="34">Puducherry</option><option value="3">Punjab</option><option value="8">Rajasthan</option><option value="11">Sikkim</option><option value="33">Tamil Nadu</option><option value="36">Telangana</option><option value="38">The Dadra And Nagar Haveli And Daman And Diu</option><option value="16">Tripura</option><option value="9">Uttar Pradesh</option><option value="5">Uttarakhand</option><option value="19">West Bengal</option></select>
-</div>
-<div style="padding:10px">
-                <button type="submit" class="btn btn-success">Save Profile</button>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="sidebar-content">
+          <h2>Profile</h2>
+          <form action="/updateProfile" method="POST">
+              <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
               </div>
-              </form>
-        </div>
-    </div>
+              <div class="form-group">
+                  <label for="sex">Sex:</label>
+                  <select class="form-control" id="sex" name="sex">
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Others">Others</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="dob">Date of Birth (DOB):</label>
+                  <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter your Date of Birth (dd/mm/yyyy)">
+              </div>
+              <div class="form-group">
+                  <label for="location">Enter Your State:</label>
+                  <select id="stateDropdown" class="form-select" name="location">
+                      <option value="">Select State</option>
+                      <option value="Andaman And Nicobar Islands">Andaman And Nicobar Islands</option>
+                      <option value="Andhra Pradesh">Andhra Pradesh</option>
+                      <!-- Continue with the rest of the states... -->
+                  </select>
+              </div>
+              <div style="padding:10px">
+                  <button type="submit" class="btn btn-success">Save Profile</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  
 
     <div id="main" class="container-wrapper">
         <div class="image-container">
