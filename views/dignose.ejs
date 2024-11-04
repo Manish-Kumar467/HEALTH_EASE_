@@ -104,16 +104,24 @@
             display:flex;
             justify-content: center;
         }
-        .dropdown {
-            width: 100%;
-            margin-bottom: 15px;
-        }
+     
         .selected-symptoms {
             margin: 10px 0;
             padding: 10px;
             border: 1px solid #ccc;
             width: 100%;
         }
+
+        .dropdown {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    
+    
+}
+
     </style>
 </head>
 
@@ -242,7 +250,7 @@
             <option value="swelling_of_stomach">swelling_of_stomach</option>
         </select>
         <label for="symptomsType5">Joint and Muscle-Related Symptoms</label>
-        <select id="symptomsType5" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+        <select id="symptomsType5" class="dropdown" multiple >
             <option value="joint_pain">joint_pain</option>
             <option value="muscle_wasting">muscle_wasting</option>
             <option value="muscle_pain">muscle_pain</option>
@@ -313,28 +321,29 @@
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div> -->
     <script>
-        const selectedSymptoms = new Set();
+        // Function to gather selected symptoms from all dropdowns
+    function updateSelectedSymptoms() {
+        // Get all dropdown elements
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const symptomsList = document.getElementById('symptomsList');
+        
+        // Clear the current list
+        symptomsList.innerHTML = '';
 
-        function updateSelectedSymptoms() {
-            // Clear the current symptoms list
-            selectedSymptoms.clear();
-
-            // Get all symptom select elements
-            const symptomSelects = document.querySelectorAll('select[multiple]');
-
-            symptomSelects.forEach(select => {
-                const selectedOptions = Array.from(select.selectedOptions);
-                selectedOptions.forEach(option => {
-                    selectedSymptoms.add(option.value);
-                });
+        // Loop through each dropdown and gather selected options
+        dropdowns.forEach(dropdown => {
+            Array.from(dropdown.selectedOptions).forEach(option => {
+                const listItem = document.createElement('li');
+                listItem.textContent = option.textContent; // Display symptom name
+                symptomsList.appendChild(listItem);
             });
+        });
+    }
 
-            // Display the selected symptoms
-            const selectedSymptomsList = document.getElementById('selectedSymptomsList');
-            selectedSymptomsList.innerHTML = Array.from(selectedSymptoms).join(', ');
-        }
-
-
+    // Attach event listeners to each dropdown
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.addEventListener('change', updateSelectedSymptoms);
+    });
 
         // Function to submit the diagnosis (example functionality)
         function submitDiagnosis() {
@@ -342,37 +351,8 @@
         alert('Diagnosing based on symptoms: ' + symptoms);
         // Add your form submission or AJAX request here
         }
-
-     // Assuming you have a function that returns the predicted disease
-    // Assuming you have a function that returns the predicted disease
-//     function getPredictedDisease() {
-//         // Replace this with your actual logic to get the predicted disease
-//         return "Example Disease"; // Placeholder for the predicted disease
-//     }
-
-//     // Adding event listener to the diagnose button
-//     document.getElementsByClassName("diagnosebtn")[0].addEventListener("click", function() {
-//     // Get the predicted disease
-//     var predictedDisease = getPredictedDisease();
-
-//     // Create a message to display
-//     var message = "The predicted disease is: " + predictedDisease;
-
-//     // Get the result div
-//     var resultDiv = document.getElementById("result");
-//     resultDiv.innerHTML="<h1>RESULTS</h1>";
     
-//     // Update the text content of the result div
-//      // Set the message
-
-//     // Make the result div visible
-//     resultDiv.style.display = "block"; // Show the result panel
-
-//     // Optionally, you can style the result
-//     resultDiv.style.color = "black"; // Change text color
-//     resultDiv.style.fontWeight = "bold"; // Make text bold
-// });
-
+   
      
          document.getElementById("profile-link").addEventListener("click", function() {
              document.getElementById("mySidebar").classList.toggle("open");
