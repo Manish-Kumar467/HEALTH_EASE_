@@ -170,6 +170,27 @@ overflow-y: auto;
   }
 } 
 
+.profile-photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border: 2px solid #ccc; /* Circular border around the photo */
+    /* object-fit: cover; Ensures the photo fits within the circle */
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Adds a background color if no photo is set */
+}
+
+#fileInput {
+    display: none;
+}
+
+
+
 
 </style>
 <body>
@@ -206,11 +227,18 @@ overflow-y: auto;
             </div>
         </div>
     </nav>
-
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <div class="sidebar-content">
           <h2>Profile</h2>
+          
+          <!-- Circular Profile Photo -->
+          <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
+              <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
+          </div>
+  
+          <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+  
           <form action="/updateProfile" method="POST">
               <div class="form-group">
                   <label for="name">Name:</label>
@@ -242,8 +270,15 @@ overflow-y: auto;
                   <button type="submit" class="btn btn-success">Save Profile</button>
               </div>
           </form>
+  
+          <!-- Update Photo Button -->
+          <div style="padding:10px">
+              <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
+          </div>
       </div>
   </div>
+  
+  
   
 
     <div id="main" class="container-wrapper">
@@ -286,6 +321,28 @@ overflow-y: auto;
         // function scrollToTop() {
         //     window.scrollTo({ top: 0, behavior: 'smooth' });
         // }
+
+        // Function to preview the uploaded image
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profilePhoto');
+        output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Function to update the photo (you can extend this to send the image to the server)
+function updateProfilePhoto() {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        // Here you would send the image to the server using AJAX or a form submission
+        alert("Profile photo updated!");
+    } else {
+        alert("Please select a photo first.");
+    }
+}
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

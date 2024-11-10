@@ -122,6 +122,25 @@
     
 }
 
+.profile-photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border: 2px solid #ccc; /* Circular border around the photo */
+    /* object-fit: cover; Ensures the photo fits within the circle */
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Adds a background color if no photo is set */
+}
+
+#fileInput {
+    display: none;
+}
+
     </style>
 </head>
 
@@ -159,9 +178,7 @@
 
 
         
-        <div class="diagnosebtn">
-        <button id="diagnosebtn" class="diagnosebtn btn btn-success">Diagnose</button>
-    </div>
+       
     <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
         
     </div>
@@ -170,37 +187,57 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="sidebar-content">
             <h2>Profile</h2>
-            <form>
+            
+            <!-- Circular Profile Photo -->
+            <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
+                <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
+            </div>
+    
+            <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+    
+            <form action="/updateProfile" method="POST">
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
-                    <label for="Sex">Sex:</label>
-                    <select type="email" class="form-control" id="Sex" placeholder="Select your Gender">
-                      <option value="">Select Gender</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Others</option>
+                    <label for="sex">Sex:</label>
+                    <select class="form-control" id="sex" name="sex">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="DOB">Date of Birth(DOB):</label>
-                    <input type="DOB" class="form-control" id="DOB" placeholder="Enter your Date of birth(dd/mm/yy)">
+                    <label for="dob">Date of Birth (DOB):</label>
+                    <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter your Date of Birth (dd/mm/yyyy)">
                 </div>
                 <div class="form-group">
-                    <label for="address">Enter Your State</label>
-                    <select id="stateDropdown" class="form-select" fdprocessedid="ui6vav"><option value="">Select State</option><option value="35">Andaman And Nicobar Islands</option><option value="28">Andhra Pradesh</option><option value="12">Arunachal Pradesh</option><option value="18">Assam</option><option value="10">Bihar</option><option value="4">Chandigarh</option><option value="22">Chhattisgarh</option><option value="7">Delhi</option><option value="30">Goa</option><option value="24">Gujarat</option><option value="6">Haryana</option><option value="2">Himachal Pradesh</option><option value="1">Jammu And Kashmir</option><option value="20">Jharkhand</option><option value="29">Karnataka</option><option value="32">Kerala</option><option value="37">Ladakh</option><option value="31">Lakshadweep</option><option value="23">Madhya Pradesh</option><option value="27">Maharashtra</option><option value="14">Manipur</option><option value="17">Meghalaya</option><option value="15">Mizoram</option><option value="13">Nagaland</option><option value="21">Odisha</option><option value="34">Puducherry</option><option value="3">Punjab</option><option value="8">Rajasthan</option><option value="11">Sikkim</option><option value="33">Tamil Nadu</option><option value="36">Telangana</option><option value="38">The Dadra And Nagar Haveli And Daman And Diu</option><option value="16">Tripura</option><option value="9">Uttar Pradesh</option><option value="5">Uttarakhand</option><option value="19">West Bengal</option></select>
+                    <label for="location">Enter Your State:</label>
+                    <select id="stateDropdown" class="form-select" name="location">
+                        <option value="">Select State</option>
+                        <option value="Andaman And Nicobar Islands">Andaman And Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <!-- Continue with the rest of the states... -->
+                    </select>
                 </div>
                 <div style="padding:10px">
                     <button type="submit" class="btn btn-success">Save Profile</button>
                 </div>
-              </form>
+            </form>
+    
+            <!-- Update Photo Button -->
+            <div style="padding:10px">
+                <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
+            </div>
         </div>
     </div>
 
-    <div class="maincontent">
-        <form id="diagnosisForm" action="/dignose" method="POST">
+   
+<div class="maincontent">
+    <form id="diagnosisForm" action="/diagnose" method="POST">
+        <!-- Skin-related Symptoms -->
         <label for="symptomsType1">Skin-related Symptoms</label>
         <select id="symptomsType1" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="itching">itching</option>
@@ -217,14 +254,18 @@
             <option value="red_sore_around_nose">red_sore_around_nose</option>
             <option value="yellow_crust_ooze">yellow_crust_ooze</option>
         </select>
-        <label for="symptomsType2">Eye-Related Symptoms:</label>
+
+        <!-- Eye-related Symptoms -->
+        <label for="symptomsType2">Eye-Related Symptoms</label>
         <select id="symptomsType2" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="blurred_and_distorted_vision">blurred_and_distorted_vision</option>
             <option value="redness_of_eyes">redness_of_eyes</option>
             <option value="watering_from_eyes">watering_from_eyes</option>
             <option value="yellowing_of_eyes">yellowing_of_eyes</option>
         </select>
-        <label for="symptomsType3">Respiratory-Related Symptoms:</label>
+
+        <!-- Respiratory-related Symptoms -->
+        <label for="symptomsType3">Respiratory-Related Symptoms</label>
         <select id="symptomsType3" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="continuous_sneezing">continuous_sneezing</option>
             <option value="breathlessness">breathlessness</option>
@@ -233,7 +274,9 @@
             <option value="phlegm">phlegm</option>
             <option value="runny_nose">runny_nose</option>
         </select>
-        <label for="symptomsType4">Digestive-Related Symptoms:</label>
+
+        <!-- Digestive-related Symptoms -->
+        <label for="symptomsType4">Digestive-Related Symptoms</label>
         <select id="symptomsType4" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="stomach_pain">stomach_pain</option>
             <option value="acidity">acidity</option>
@@ -249,8 +292,10 @@
             <option value="excessive_hunger">excessive_hunger</option>
             <option value="swelling_of_stomach">swelling_of_stomach</option>
         </select>
+
+        <!-- Joint and Muscle-related Symptoms -->
         <label for="symptomsType5">Joint and Muscle-Related Symptoms</label>
-        <select id="symptomsType5" class="dropdown" multiple >
+        <select id="symptomsType5" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="joint_pain">joint_pain</option>
             <option value="muscle_wasting">muscle_wasting</option>
             <option value="muscle_pain">muscle_pain</option>
@@ -258,7 +303,9 @@
             <option value="swelling_joints">swelling_joints</option>
             <option value="back_pain">back_pain</option>
         </select>
-        <label for="symptomsType6"> Neurological-Related Symptoms</label>
+
+        <!-- Neurological-related Symptoms -->
+        <label for="symptomsType6">Neurological-Related Symptoms</label>
         <select id="symptomsType6" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="headache">headache</option>
             <option value="dizziness">dizziness</option>
@@ -270,9 +317,10 @@
             <option value="altered_sensorium">altered_sensorium</option>
             <option value="slurred_speech">slurred_speech</option>
             <option value="loss_of_balance">loss_of_balance</option>
-            
         </select>
-        <label for="symptomsType7"> General Symptoms</label>
+
+        <!-- General Symptoms -->
+        <label for="symptomsType7">General Symptoms</label>
         <select id="symptomsType7" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fatigue">fatigue</option>
             <option value="weight_loss">weight_loss</option>
@@ -289,20 +337,35 @@
             <option value="bruising">bruising</option>
             <option value="high_fever">high_fever</option>
         </select>
+
+        <!-- Circulatory-related Symptoms -->
         <label for="symptomsType8">Circulatory System-Related Symptoms</label>
         <select id="symptomsType8" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="fast_heart_rate">fast_heart_rate</option>
             <option value="palpitations">palpitations</option>
         </select>
+
+        <!-- Urinary-related Symptoms -->
         <label for="symptomsType9">Urinary-Related Symptoms</label>
         <select id="symptomsType9" class="dropdown" multiple onchange="updateSelectedSymptoms()">
             <option value="burning_micturition">burning_micturition</option>
             <option value="continuous_feel_of_urine">continuous_feel_of_urine</option>
             <option value="bladder_discomfort">bladder_discomfort</option>
         </select>
-        <!-- Text field -->
-        <h1>Diagnose Symptoms</h1>
-        <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
+
+      
+
+ <!-- Text field -->
+ <h1>Diagnose Symptoms</h1>
+ <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
+
+
+
+
+
+
+
+
 
 
 
@@ -328,29 +391,24 @@
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div> -->
     <script>
-        // Function to gather selected symptoms from all dropdowns
-    function updateSelectedSymptoms() {
-        // Get all dropdown elements
-        const dropdowns = document.querySelectorAll('.dropdown');
-        const symptomsList = document.getElementById('symptomsList');
-        
-        // Clear the current list
-        symptomsList.innerHTML = '';
+  function updateSelectedSymptoms() {
+  // Get all dropdown elements by class name
+  const dropdowns = document.querySelectorAll('.dropdown');
+  let selectedSymptoms = [];
 
-        // Loop through each dropdown and gather selected options
-        dropdowns.forEach(dropdown => {
-            Array.from(dropdown.selectedOptions).forEach(option => {
-                const listItem = document.createElement('li');
-                listItem.textContent = option.textContent; // Display symptom name
-                symptomsList.appendChild(listItem);
-            });
-        });
-    }
-
-    // Attach event listeners to each dropdown
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.addEventListener('change', updateSelectedSymptoms);
+  // Loop through each dropdown and collect selected options
+  dropdowns.forEach(dropdown => {
+    Array.from(dropdown.options).forEach(option => {
+      if (option.selected) {
+        selectedSymptoms.push(option.text);
+      }
     });
+  });
+
+  // Display the selected symptoms as comma-separated values in the textarea
+  document.getElementById('selectedSymptoms').value = selectedSymptoms.join(', ');
+}
+
 
         // Function to submit the diagnosis (example functionality)
         function submitDiagnosis() {
@@ -376,6 +434,26 @@
          function scrollToTop() {
              window.scrollTo({ top: 0, behavior: 'smooth' });
          }
+
+         function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profilePhoto');
+        output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Function to update the photo (you can extend this to send the image to the server)
+function updateProfilePhoto() {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        // Here you would send the image to the server using AJAX or a form submission
+        alert("Profile photo updated!");
+    } else {
+        alert("Please select a photo first.");
+    }
+}
      </script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
