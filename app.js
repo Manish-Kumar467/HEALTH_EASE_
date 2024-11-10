@@ -173,13 +173,13 @@ app.post('/updateProfile', async (req, res) => {
 // submiting and predicting disease
 app.post("/submit-symptoms", async (req, res) => {
   try {
-    // Collect symptoms from the form as an array and join into a comma-separated string
-    const symptoms = req.body.symptoms; // Assuming symptoms are sent in a single form field named 'symptoms'
-    const symptomsString = symptoms.join(',');
+    // Collect symptoms from the form field named 'symptoms' and split into an array
+    const symptomsString = req.body.symptoms; // Comma-separated symptoms input
+    const symptomsArray = symptomsString.split(',').map(s => s.trim());
 
-    // Send symptoms to the Flask server
+    // Send symptoms as an array to the Flask server
     const response = await axios.post("http://localhost:5000/predict", {
-      symptoms: symptomsString
+      symptoms: symptomsArray
     });
 
     const predictedDisease = response.data.disease;
@@ -191,6 +191,7 @@ app.post("/submit-symptoms", async (req, res) => {
     res.status(500).send("An error occurred while predicting the disease.");
   }
 });
+
 
 // Passport Local Strategy
 passport.use(
