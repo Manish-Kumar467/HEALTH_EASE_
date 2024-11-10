@@ -211,6 +211,13 @@ overflow-y: auto;
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <div class="sidebar-content">
           <h2>Profile</h2>
+          
+          <!-- Circular Profile Photo -->
+          <div class="profile-photo-container">
+              <img id="profilePhoto" src="default-profile.jpg" alt="Profile Photo" class="profile-photo" onclick="document.getElementById('fileInput').click();" />
+              <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+          </div>
+  
           <form action="/updateProfile" method="POST">
               <div class="form-group">
                   <label for="name">Name:</label>
@@ -242,8 +249,14 @@ overflow-y: auto;
                   <button type="submit" class="btn btn-success">Save Profile</button>
               </div>
           </form>
+  
+          <!-- Update Photo Button -->
+          <div style="padding:10px">
+              <button type="button" class="btn btn-primary" onclick="updateProfilePhoto()">Update Photo</button>
+          </div>
       </div>
   </div>
+  
   
 
     <div id="main" class="container-wrapper">
