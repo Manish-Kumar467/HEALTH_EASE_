@@ -189,6 +189,59 @@ overflow-y: auto;
     display: none;
 }
 
+/* About section container */
+.about-container {
+    text-align: center;
+    padding: 40px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Container for the three cards */
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Individual card styling */
+.card {
+   background: radial-gradient(circle, #d0f7d4, #a8e6e0);;
+    border-radius: 8px;
+    width: 30%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Hover effect for cards */
+.card:hover {
+  transform: translateY(-20px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure the cards stack properly on smaller screens */
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
 
 
 
@@ -312,7 +365,7 @@ overflow-y: auto;
     <div id="main" class="container-wrapper">
         <div class="image-container">
             <!-- <img src="/assets/images/main.jpg" alt="mainimage"> -->
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img src="/assets/images/main.jpg" class="d-block w-100" alt="...">
@@ -340,9 +393,23 @@ overflow-y: auto;
     </div>
 
     <div id="about-section" class="about-container">
-        <h2>WHY TO CHOOSE HEALTH-EASE</h2>
-        <p>At Healthease, we empower users with the ability to diagnose a wide array of diseases, drawing from a robust database that covers over 40 to 100 medical conditions. Our system is designed to assist in identifying various ailments, including infectious diseases such as influenza and tuberculosis, chronic conditions like diabetes and hypertension, and autoimmune disorders such as lupus and rheumatoid arthritis. We also encompass skin diseases, gastrointestinal disorders, neurological conditions, and mental health disorders, providing a holistic approach to health management. By analyzing user-inputted symptoms and comparing them against our extensive knowledge base, Healthease offers reliable potential diagnoses backed by the latest medical research and clinical guidelines. As we continue to innovate, our commitment to expanding the spectrum of diagnosable diseases ensures that both patients and healthcare professionals have access to invaluable tools for effective health management.</p>
-    </div>
+      <h2>SOME POINTS TO CONSIDER</h2>
+      <div class="cards-container">
+          <div class="card">
+              <h3>what is Health-Ease</h3>
+              <p>At Healthease, we empower users with the ability to diagnose a wide array of diseases, drawing from a robust database that covers over 40 to 100 medical conditions. Our system is designed to assist in identifying various ailments, including infectious diseases such as influenza and tuberculosis.</p>
+          </div>
+          <div class="card">
+              <h3>Why to choose Health-Ease</h3>
+              <p>We also encompass skin diseases, gastrointestinal disorders, neurological conditions, and mental health disorders, providing a holistic approach to health management. Healthease offers reliable potential diagnoses backed by the latest medical research and clinical guidelines.</p>
+          </div>
+          <div class="card">
+              <h3>Our background</h3>
+              <p>By analyzing user-inputted symptoms and comparing them against our extensive knowledge base, Healthease offers reliable potential diagnoses. As we continue to innovate, our commitment to expanding the spectrum of diagnosable diseases ensures that both patients and healthcare professionals have access to invaluable tools for effective health management.</p>
+          </div>
+      </div>
+  </div>
+  
 
     <div id="footer-section" class="footer-container text-center">
         <div class="footer-links">
