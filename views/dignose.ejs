@@ -409,22 +409,19 @@ label {
  <h1>Diagnose Symptoms</h1>
  <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
 
-
-
-
-
-
-
-
-
-
-
         <div class="diagnosebtn">
             <button type="button" id="diagnosebtn" class="diagnosebtn btn btn-success" onclick="submitDiagnosis()">Diagnose</button>
         </div>
         </form>
         <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
     </div>
+
+    <form action="/submit-symptoms" method="POST">
+        <label for="symptoms">Enter Symptoms (comma-separated):</label>
+        <input type="text" name="symptoms" id="symptoms" required>
+        <button type="submit">Diagnose</button>
+      </form>
+      
 
     <!-- <div id="footer-section" class="footer-container text-center">
         <div class="footer-links">
