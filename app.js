@@ -8,6 +8,9 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
+const axios = require('axios');
+const FormData = require
+
 
 dotenv.config();
 
@@ -167,7 +170,27 @@ app.post('/updateProfile', async (req, res) => {
   }
 });
 
+// submiting and predicting disease
+app.post("/submit-symptoms", async (req, res) => {
+  try {
+    // Collect symptoms from the form as an array and join into a comma-separated string
+    const symptoms = req.body.symptoms; // Assuming symptoms are sent in a single form field named 'symptoms'
+    const symptomsString = symptoms.join(',');
 
+    // Send symptoms to the Flask server
+    const response = await axios.post("http://localhost:5000/predict", {
+      symptoms: symptomsString
+    });
+
+    const predictedDisease = response.data.disease;
+    
+    // Show the result as an alert on the website
+    res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
+  } catch (error) {
+    console.error("Error predicting disease:", error);
+    res.status(500).send("An error occurred while predicting the disease.");
+  }
+});
 
 // Passport Local Strategy
 passport.use(
