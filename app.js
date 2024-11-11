@@ -176,12 +176,13 @@ app.post("/submit-symptoms", async (req, res) => {
     // Collect symptoms from the form field named 'symptoms' and split into an array
     const symptomsString = req.body.symptoms; // Comma-separated symptoms input
     const symptomsArray = symptomsString.split(',').map(s => s.trim());
+    console.log(symptomsArray);
 
     // Send symptoms as an array to the Flask server
     const response = await axios.post("http://localhost:5000/predict", {
       symptoms: symptomsArray
     });
-
+    console.log(response);
     const predictedDisease = response.data.disease;
     
     // Show the result as an alert on the website
