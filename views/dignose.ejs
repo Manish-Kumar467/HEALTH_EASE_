@@ -16,6 +16,41 @@
             padding-top: 15vh; /* Adds space for the fixed navbar */
             overflow-x: hidden; /* Prevent horizontal scroll */
         }
+
+        .navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
     
         .header {
             text-align: center;
