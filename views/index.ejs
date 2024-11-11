@@ -171,8 +171,10 @@ overflow-y: auto;
 } 
 
 .profile-photo-container {
-    text-align: center;
-    margin-bottom: 20px;
+   
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
 }
 
 .profile-photo {
@@ -288,10 +290,15 @@ h2 {
           <!-- Circular Profile Photo -->
           <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
               <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
-          </div>
+              <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+            </div>
   
-          <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
-  
+        
+  <!-- Update Photo Button -->
+  <div style="padding:10px">
+    <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
+</div>
+
           <form action="/updateProfile" method="POST">
               <div class="form-group">
                   <label for="name">Name:</label>
@@ -352,13 +359,9 @@ h2 {
               </div>
           </form>
   
-          <!-- Update Photo Button -->
-          <div style="padding:10px">
-              <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
-          </div>
+        
+        </div>
       </div>
-  </div>
-  
   
   
 
@@ -421,6 +424,8 @@ h2 {
 
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div>
+
+    
 
     <script>
         document.getElementById("profile-link").addEventListener("click", function() {
