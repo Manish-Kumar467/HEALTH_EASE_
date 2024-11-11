@@ -483,12 +483,17 @@ document.addEventListener('scroll', () => {
 
   cards.forEach(card => {
     const cardTop = card.getBoundingClientRect().top;
+    const cardBottom = card.getBoundingClientRect().bottom;
 
-    if (cardTop < windowHeight * 0.9) { // Adjust the factor if needed for earlier/later visibility
+    // Check if the card is in view
+    if (cardTop < windowHeight && cardBottom > 0) {
       card.classList.add('visible');
+    } else {
+      card.classList.remove('visible'); // Remove class when out of view
     }
   });
 });
+
 
     </script>
 
