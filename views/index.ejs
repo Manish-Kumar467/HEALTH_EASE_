@@ -202,14 +202,16 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Container for the three cards */
-.cards-container {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    flex-wrap: wrap;
-}
 
+
+
+.cards-container .card.visible {
+  opacity: 1;
+  transform: translateY(0); /* Position to original place */
+  opacity: 0; /* Hidden initially */
+  transform: translateY(50px); /* Slide up from below */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
 /* Individual card styling */
 .card {
    background: radial-gradient(circle, #d0f7d4, #a8e6e0);;
