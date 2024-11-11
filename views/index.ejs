@@ -62,10 +62,32 @@ body {
   z-index: 1000;
 }
 
-
-  .nav-item{
+.nav-item {
   padding-left: 20px;
-  }
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+
 .container-fluid {
 background: linear-gradient(to right, #d3f6f9, #a1e4a6);
 background-size: cover;
