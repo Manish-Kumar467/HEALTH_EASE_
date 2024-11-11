@@ -179,7 +179,7 @@ app.post("/submit-symptoms", async (req, res) => {
     console.log(symptomsArray);
 
     // Send symptoms as an array to the Flask server
-    const response = await axios.post("http://localhost:5000/predict", {
+    const response = await axios.post("https://flask-production-a9e6.up.railway.app/predict", {
       symptoms: symptomsArray
     });
     console.log(response);
