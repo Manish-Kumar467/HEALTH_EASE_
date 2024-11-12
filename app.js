@@ -56,7 +56,7 @@ app.use(passport.session());
 // Routes
 
 app.get("/", (req, res) => {
-  res.render("home.ejs"); // Render home page
+  res.render("load.ejs"); // Render home page
 });
 
 app.get("/login", (req, res) => {
