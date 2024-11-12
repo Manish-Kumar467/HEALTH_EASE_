@@ -60,7 +60,28 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+
+
 }
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+
 
 .nav-item {
   padding-left: 20px;
@@ -236,7 +257,7 @@ h2 {
 .cards-container .card {
   opacity: 0; /* Hidden initially */
   transform: translateY(50px); /* Slide up from below */
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  transition: opacity 2s ease-out, transform 2s ease-out;
 }
 
 .cards-container .card.visible {
