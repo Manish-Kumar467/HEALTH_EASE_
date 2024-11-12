@@ -53,6 +53,17 @@ body {
   overflow-x: hidden;
 }
 
+/* Default navbar background */
+.navbar-collapse {
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* When the navbar is expanded, apply a fade effect */
+.navbar-collapse.show {
+    background-color: rgba(123, 180, 123, 0.5); /* Dark background with transparency */
+}
+
+
 .navbar {
   --bs-navbar-padding-y: 0px;
   width: 100%;
@@ -305,39 +316,39 @@ h2 {
 
 </style>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+            <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" id="profile-link">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#about-section">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#footer-section">Help</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-success" type="submit">
+                <a class="nav-link" href="/logout">LogOut</a>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" id="profile-link">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#about-section">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#footer-section">Help</a>
-                    </li>
-                </ul>
-               
-                    <button class="btn btn-outline-success" type="submit">
-                      <a class="nav-link" href="/logout">LogOut</a>
-                  </button>
-                
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <div class="sidebar-content">
@@ -536,6 +547,9 @@ document.addEventListener('scroll', () => {
     }
   });
 });
+
+
+
 
 
     </script>
