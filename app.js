@@ -176,7 +176,7 @@ app.post("/submit-symptoms", async (req, res) => {
       const symptomsString = req.body.symptoms;
       const symptomsArray = symptomsString.split(',').map(s => s.trim());
 
-      const flaskServiceUrl = process.env.FLASK_SERVICE_URL || 'http://flask:5000';
+      const flaskServiceUrl = process.env.FLASK_SERVICE_URL || 'http://localhost:5000';
       //const flaskResponse = await axios.post(`${flaskServiceUrl}/predict`, { symptoms });
       console.log("Connecting to Flask service at:", flaskServiceUrl); // Log the URL
       console.log(symptomsArray);
