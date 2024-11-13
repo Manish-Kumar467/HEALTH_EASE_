@@ -14,7 +14,12 @@ const FormData = require
 
 dotenv.config();
 
+const { PythonShell } = require('python-shell');
+
 const app = express();
+
+app.use(express.json());
+
 const port = process.env.PORT || 3000; // Updated for Railway
 
 const saltRounds = 10;
@@ -171,26 +176,55 @@ app.post('/updateProfile', async (req, res) => {
 });
 
 // submiting and predicting disease
-app.post("/submit-symptoms", async (req, res) => {
-  try {
-      const symptomsString = req.body.symptoms;
-      const symptomsArray = symptomsString.split(',').map(s => s.trim());
+// app.post("/submit-symptoms", async (req, res) => {
+//   try {
+//       const symptomsString = req.body.symptoms;
+//       const symptomsArray = symptomsString.split(',').map(s => s.trim());
 
-      const flaskServiceUrl = process.env.FLASK_SERVICE_URL || 'http://localhost:5000';
-      //const flaskResponse = await axios.post(`${flaskServiceUrl}/predict`, { symptoms });
-      console.log("Connecting to Flask service at:", flaskServiceUrl); // Log the URL
-      console.log(symptomsArray);
+//       const flaskServiceUrl = process.env.FLASK_SERVICE_URL || 'http://localhost:5000';
+//       //const flaskResponse = await axios.post(`${flaskServiceUrl}/predict`, { symptoms });
+//       console.log("Connecting to Flask service at:", flaskServiceUrl); // Log the URL
+//       console.log(symptomsArray);
 
-      const response = await axios.post(`${flaskServiceUrl}/predict`, {
-          symptoms: symptomsArray
-      });
+//       const response = await axios.post(`${flaskServiceUrl}/predict`, {
+//           symptoms: symptomsArray
+//       });
       
-      const predictedDisease = response.data.disease;
-      res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
-  } catch (error) {
-      console.error("Error predicting disease:", error);
-      res.status(500).send("An error occurred while predicting the disease.");
-  }
+//       const predictedDisease = response.data.disease;
+//       res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
+//   } catch (error) {
+//       console.error("Error predicting disease:", error);
+//       res.status(500).send("An error occurred while predicting the disease.");
+//   }
+// });
+
+app.post("/submit-symptoms", (req, res) => {
+  const symptomsString = req.body.symptoms;
+  const symptomsArray = symptomsString.split(',').map(s => s.trim());
+  console.log(symptomsArray);
+
+  let options = {
+      mode: 'text',
+      pythonOptions: ['-u'], // unbuffered output
+      args: [JSON.stringify(symptomsArray)]
+  };
+
+  PythonShell.run('predict.py', options, function (err, results) {
+      if (err) {
+          console.error("Error in Python script:", err);
+          return res.status(500).send("An error occurred while predicting the disease.");
+      }
+      
+      try {
+          const prediction = JSON.parse(results[0]);
+          const predictedDisease = prediction.disease;
+          console.log(predictedDisease);
+          res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
+      } catch (parseError) {
+          console.error("Error parsing prediction result:", parseError);
+          res.status(500).send("An error occurred while parsing the prediction result.");
+      }
+  });
 });
 
 
