@@ -176,7 +176,10 @@ app.post("/submit-symptoms", async (req, res) => {
       const symptomsString = req.body.symptoms;
       const symptomsArray = symptomsString.split(',').map(s => s.trim());
 
-      const response = await axios.post("https://flask-production-a9e6.up.railway.app/predict", {
+      const flaskServiceUrl = process.env.FLASK_SERVICE_URL || 'http://flask:5000';
+      //const flaskResponse = await axios.post(`${flaskServiceUrl}/predict`, { symptoms });
+
+      const response = await axios.post(`${flaskServiceUrl}/predict`, {
           symptoms: symptomsArray
       });
       
@@ -187,6 +190,7 @@ app.post("/submit-symptoms", async (req, res) => {
       res.status(500).send("An error occurred while predicting the disease.");
   }
 });
+
 
 
 
