@@ -53,6 +53,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Default navbar background */
+.navbar-collapse {
+    transition: background 0.3s ease; /* Smooth transition for the entire background property */
+}
+
+.navbar-collapse.show {
+    background: radial-gradient(circle, rgba(208, 247, 212, 0.5), rgba(168, 230, 224, 0.7));
+}
+
+
 .navbar {
   --bs-navbar-padding-y: 0px;
   width: 100%;
@@ -60,12 +70,55 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+
+
+}
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
 }
 
 
-  .nav-item{
+.nav-item {
   padding-left: 20px;
-  }
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+
 .container-fluid {
 background: linear-gradient(to right, #d3f6f9, #a1e4a6);
 background-size: cover;
@@ -171,8 +224,10 @@ overflow-y: auto;
 } 
 
 .profile-photo-container {
-    text-align: center;
-    margin-bottom: 20px;
+   
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
 }
 
 .profile-photo {
@@ -208,78 +263,91 @@ h2 {
     flex-wrap: wrap;
 }
 
+/* Initial styling for the cards with fade-in effect */
+.cards-container .card {
+  opacity: 0; /* Hidden initially */
+  transform: translateY(50px); /* Slide up from below */
+  transition: opacity 2s ease-out, transform 2s ease-out;
+}
+
+.cards-container .card.visible {
+  opacity: 1; /* Fully visible when scrolled into view */
+  transform: translateY(0); /* Position to original place */
+}
+
 /* Individual card styling */
 .card {
-   background: radial-gradient(circle, #d0f7d4, #a8e6e0);;
-    border-radius: 8px;
-    width: 30%;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+  border-radius: 8px;
+  width: 30%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
+  font-size: 1.5em;
+  margin-bottom: 15px;
 }
 
 .card p {
-    font-size: 1em;
-    color: #666;
+  font-size: 1em;
+  color: #666;
 }
 
 /* Hover effect for cards */
 .card:hover {
   transform: translateY(-20px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Ensure the cards stack properly on smaller screens */
 @media (max-width: 768px) {
-    .card {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
+
 
 
 
 </style>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+            <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" id="profile-link">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#about-section">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#footer-section">Help</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-success" type="submit">
+                <a class="nav-link" href="/logout">LogOut</a>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" id="profile-link">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#about-section">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#footer-section">Help</a>
-                    </li>
-                </ul>
-               
-                    <button class="btn btn-outline-success" type="submit">
-                      <a class="nav-link" href="/logout">LogOut</a>
-                  </button>
-                
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <div class="sidebar-content">
@@ -288,10 +356,15 @@ h2 {
           <!-- Circular Profile Photo -->
           <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
               <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
-          </div>
+              <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+            </div>
   
-          <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
-  
+        
+  <!-- Update Photo Button -->
+  <div style="padding:10px">
+    <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
+</div>
+
           <form action="/updateProfile" method="POST">
               <div class="form-group">
                   <label for="name">Name:</label>
@@ -352,13 +425,9 @@ h2 {
               </div>
           </form>
   
-          <!-- Update Photo Button -->
-          <div style="padding:10px">
-              <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
-          </div>
+        
+        </div>
       </div>
-  </div>
-  
   
   
 
@@ -422,6 +491,8 @@ h2 {
         <p>&copy; 2024 Health-Ease. All rights reserved.</p>
     </div>
 
+    
+
     <script>
         document.getElementById("profile-link").addEventListener("click", function() {
             document.getElementById("mySidebar").classList.toggle("open");
@@ -458,6 +529,27 @@ function updateProfilePhoto() {
         alert("Please select a photo first.");
     }
 }
+
+document.addEventListener('scroll', () => {
+  const cards = document.querySelectorAll('.card');
+  const windowHeight = window.innerHeight;
+
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+    const cardBottom = card.getBoundingClientRect().bottom;
+
+    // Check if the card is in view
+    if (cardTop < windowHeight && cardBottom > 0) {
+      card.classList.add('visible');
+    } else {
+      card.classList.remove('visible'); // Remove class when out of view
+    }
+  });
+});
+
+
+
+
 
     </script>
 
