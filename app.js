@@ -153,30 +153,29 @@ app.post("/register", async (req, res) => {
 
 // Route to handle profile update
 app.post('/updateProfile', async (req, res) => {
-  // Ensure user is authenticated
-  if (!req.isAuthenticated() || !req.user) {
+  if (!req.session.userId) {
     return res.status(401).send("Unauthorized");
   }
 
-  // Get form data
   const { name, sex, dob, location } = req.body;
-  const userId = req.user.id; // Get user ID from passport's `req.user`
+  const userId = req.session.userId;
 
   try {
-    // Update the user's profile in the `info` table
     const query = `
-      UPDATE info 
-      SET name = $1, sex = $2, dob = $3, location = $4 
-      WHERE user_id = $5
+      INSERT INTO info (user_id, name, sex, dob, location) 
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT (user_id)
+      DO UPDATE SET name = $2, sex = $3, dob = $4, location = $5
     `;
-    await db.query(query, [name, sex, dob, location, userId]);
+    await db.query(query, [userId, name, sex, dob, location]);
 
-    res.redirect('/success'); // Redirect to profile page or success page
+    res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).send("An error occurred while updating the profile.");
   }
 });
+
 
 
 // submiting and predicting disease
