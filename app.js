@@ -159,7 +159,9 @@ app.post('/updateProfile', async (req, res) => {
     return res.status(401).send("Unauthorized");
   }
 
-  const { name, sex, dob, location } = req.body;
+  // Parse and format the date of birth (dob) from the form input
+  const { name, sex, dob: dobInput, location } = req.body;
+  const dob = new Date(dobInput); // Convert dobInput to a JavaScript Date object
   const userId = req.session.userId;
 
   try {
