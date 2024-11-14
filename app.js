@@ -181,10 +181,14 @@ app.post('/updateProfile', async (req, res) => {
       [userId]
     );
 
-    const profile = result.rows[0]; // Get the updated profile data
+    let profile = null;
+    if(result.rows.length > 0){
+      profile = result.rows[0]; // Get the updated profile data
+    }
+   
 
     // Send the updated profile to the front end
-    res.render('profile', { profile }); // Pass the profile data to the 'profile' view
+    res.render('index', { profile }); // Pass the profile data to the 'profile' view
     // res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
     console.error("Error updating profile:", error);
