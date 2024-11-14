@@ -136,6 +136,7 @@ app.post("/register", async (req, res) => {
       );
       const user = result.rows[0];
       
+      req.session.userId = user.id; // Set userId in session after registration
       req.login(user, (err) => {
         if (err) {
           console.error("Login error:", err); // Log login errors
@@ -153,12 +154,13 @@ app.post("/register", async (req, res) => {
 
 // Route to handle profile update
 app.post('/updateProfile', async (req, res) => {
-  if (!req.session.user_id) {
+  console.log(req.session.userId);
+  if (!req.session.userId) {
     return res.status(401).send("Unauthorized");
   }
 
   const { name, sex, dob, location } = req.body;
-  const user_id = req.session.user_id;
+  const userId = req.session.userId;
 
   try {
     const query = `
@@ -167,7 +169,7 @@ app.post('/updateProfile', async (req, res) => {
       ON CONFLICT (user_id)
       DO UPDATE SET name = $2, sex = $3, dob = $4, location = $5
     `;
-    await db.query(query, [user_id, name, sex, dob, location]);
+    await db.query(query, [userId, name, sex, dob, location]);
 
     res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
@@ -247,8 +249,8 @@ passport.use(
         const user = result.rows[0];
         const valid = await bcrypt.compare(password, user.password); // Compare passwords
         if (valid) {
-          return done(null, user); // Successful login
           req.session.userId = user.id;
+          return done(null, user); // Successful login
         } else {
           return done(null, false, { message: "Incorrect password." });
         }
@@ -282,6 +284,7 @@ passport.use(
             "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
             [profile.email, "google"] // Dummy password for Google users
           );
+          req.session.userId = user.id; // Set userId in session
           return done(null, newUser.rows[0]);
         } else {
           return done(null, result.rows[0]);
@@ -301,7 +304,11 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    done(null, result.rows[0]); // Deserialize user from ID
+    const user = result.rows[0];
+    if (user) {
+      req.session.userId = user.id; // Set userId in session during deserialization
+    }
+    done(null, user); // Deserialize user from ID
   } catch (err) {
     done(err, null);
   }
