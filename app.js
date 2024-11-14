@@ -241,7 +241,8 @@ app.post("/submit-symptoms", (req, res) => {
 // Passport Local Strategy
 passport.use(
   "local",
-  new LocalStrategy(async (username, password, done) => {
+  new LocalStrategy({ usernameField: "email", passwordField: "password", passReqToCallback: true }, // Enable req in callback
+    async (username, password, done) => {
     try {
       const result = await db.query(
         "SELECT * FROM users WHERE email = $1",
