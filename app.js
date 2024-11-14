@@ -142,7 +142,7 @@ app.post("/register", async (req, res) => {
       req.session.userId = user.id; // Set userId in session after registration
       
       // Optionally insert a row in info if the trigger did not do it automatically
-      await db.query('INSERT INTO info (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [userId]);
+      // await db.query('INSERT INTO info (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [userId]);
       
       req.login(user, (err) => {
         if (err) {
