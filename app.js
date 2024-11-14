@@ -233,7 +233,7 @@ app.post('/appointment_schedule', async (req, res) => {
     }
 
     // Render the form view with the scheduled appointment data
-    res.render('/app/views/appointment.ejs', { scheduledAppointment: scheduledAppointment || null });
+    res.render('appointment', { scheduledAppointment: scheduledAppointment || null });
   } catch (error) {
     console.error("Error scheduling appointment:", error);
     res.status(500).send("An error occurred while scheduling the appointment.");
