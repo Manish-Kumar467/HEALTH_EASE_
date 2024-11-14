@@ -209,7 +209,8 @@ app.post("/submit-symptoms", (req, res) => {
       args: [JSON.stringify(symptomsArray)]
   };
 
-  PythonShell.run('predict.py', options, function (err, results) {
+  let python = require('python-shell');
+  python.PythonShell.run('predict.py', options, function (err, results) {
       if (err) {
           console.error("Error in Python script:", err);
           return res.status(500).send("An error occurred while predicting the disease.");
