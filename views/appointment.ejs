@@ -68,15 +68,7 @@
         <button type="submit">Schedule Appointment</button>
     </form>
 
-    <% if (scheduledAppointment) { %>
-        <div id="scheduled-appointment">
-          <h3>Scheduled Appointment:</h3>
-          <p>Date: <%= scheduledAppointment.appointment_date %></p>
-          <p>Time: <%= scheduledAppointment.appointment_time %></p>
-        </div>
-      <% } else {%>
-        <p>None Schedule Appointment Made</p>
-      <% } %>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     <script>
