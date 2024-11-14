@@ -227,13 +227,12 @@ app.post('/appointment_schedule', async (req, res) => {
       [userId]
     );
 
-    let scheduledAppointment = null;
-    if (result.rows.length > 0) {
-      scheduledAppointment = result.rows[0];
-    }
+    // Initialize scheduledAppointment, even if no rows are returned
+    const scheduledAppointment = result.rows[0] || { appointment_date: null, appointment_time: null };
+
 
     // Render the form view with the scheduled appointment data
-    res.render('appointment', { scheduledAppointment: scheduledAppointment || null });
+    res.render('appointment', { scheduledAppointment });
   } catch (error) {
     console.error("Error scheduling appointment:", error);
     res.status(500).send("An error occurred while scheduling the appointment.");
