@@ -23,7 +23,7 @@
     "python-shell": "^5.0.0"
   },
   "scripts": {
-    "start": "curl https://pyenv.run | bash && pyenv install 3.9.7 && pyenv global 3.9.7 && node app.js"
+    "start": "node app.js"
   },
   "keywords": []
 }
