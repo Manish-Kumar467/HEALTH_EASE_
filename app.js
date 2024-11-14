@@ -139,8 +139,11 @@ app.post("/register", async (req, res) => {
         [email, hash]
       );
       const user = result.rows[0];
-      
       req.session.userId = user.id; // Set userId in session after registration
+      
+      // Optionally insert a row in info if the trigger did not do it automatically
+      await db.query('INSERT INTO info (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [userId]);
+      
       req.login(user, (err) => {
         if (err) {
           console.error("Login error:", err); // Log login errors
@@ -196,6 +199,44 @@ app.post('/updateProfile', async (req, res) => {
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).send("An error occurred while updating the profile.");
+  }
+});
+
+app.post('/appointment_schedule', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  const userId = req.session.userId;
+  const { appoint_date: appointmentDate, appoint_time: appointmentTime } = req.body;
+
+  try {
+    const query = `
+      INSERT INTO info (user_id, appointment_date, appointment_time) 
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_id)
+      DO UPDATE SET appointment_date = $2, appointment_time = $3
+    `;
+    await db.query(query, [userId, appointmentDate, appointmentTime]);
+
+    // Retrieve the updated appointment data
+    const result = await db.query(`
+      SELECT appointment_date, appointment_time
+      FROM info
+      WHERE user_id = $1`,
+      [userId]
+    );
+
+    let scheduledAppointment = null;
+    if (result.rows.length > 0) {
+      scheduledAppointment = result.rows[0];
+    }
+
+    // Render the form view with the scheduled appointment data
+    res.render('appointment', { scheduledAppointment: scheduledAppointment || null });
+  } catch (error) {
+    console.error("Error scheduling appointment:", error);
+    res.status(500).send("An error occurred while scheduling the appointment.");
   }
 });
 
