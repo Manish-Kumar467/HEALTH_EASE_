@@ -3,7 +3,7 @@
     <% if (profile) { %>
       <p><strong>Name:</strong> <%= profile.name %></p>
       <p><strong>Gender:</strong> <%= profile.sex %></p>
-      <p><strong>Date of Birth:</strong> <%= profile.dob %></p>
+      <p><strong>Date of Birth:</strong> <%= new Date(profile.dob).toLocaleDateString('en-CA') %></p>
       <p><strong>Location:</strong> <%= profile.location %></p>
     <% } else { %>
       <p>Your profile is not yet created. Please fill in your details above to save your profile.</p>
