@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Schedule</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <style>
+        /* Style to make the calendar occupy the full width of the screen */
+        .calendar-container {
+            width: 100%;
+            margin-top: 20px;
+            max-width: 700px; /* Limits max width for a neat look */
+            margin: 0 auto; /* Centers the calendar on the page */
+        }
+        /* Time blocks styling */
+        .time-blocks {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .time-block {
+            flex: 1;
+            max-width: 150px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .time-block:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+        .time-block.selected {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <form action="/appointment_schedule" method="POST">
+        <!-- Calendar container div for showing Flatpickr calendar directly -->
+        <div class="calendar-container" id="calendar"></div>
+        <input type="hidden" id="appoint_date" name="appoint_date">
+
+        <div class="form-group">
+            <label for="appoint_time">Choose the appointment time:</label>
+            <div class="time-blocks">
+                <div class="time-block" data-time="8:30 A.M.">8:30 A.M.</div>
+                <div class="time-block" data-time="10:30 A.M.">10:30 A.M.</div>
+                <div class="time-block" data-time="4:00 P.M.">4:00 P.M.</div>
+                <div class="time-block" data-time="7:00 P.M.">7:00 P.M.</div>
+            </div>
+            <input type="hidden" id="appoint_time" name="appoint_time">
+        </div>
+
+        <button type="submit">Schedule Appointment</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        // Initialize the full-width calendar
+        flatpickr("#calendar", {
+            inline: true,          // Display calendar on page load
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onChange: function(selectedDates, dateStr) {
+                // Set the selected date to the hidden input for form submission
+                document.getElementById('appoint_date').value = dateStr;
+            }
+        });
+
+        // Handle time selection
+        document.querySelectorAll('.time-block').forEach(block => {
+            block.addEventListener('click', function() {
+                document.querySelectorAll('.time-block').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('appoint_time').value = this.dataset.time;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -80,6 +80,10 @@ app.get("/views/dignose", (req, res) => {
     res.render("dignose.ejs"); // or the appropriate rendering method
 });
 
+app.get("/views/appointment", (req, res) => {
+  res.render("appointment.ejs"); // or the appropriate rendering method
+});
+
 app.get("/help", (req, res) => {
   res.render("help.ejs");
 })
