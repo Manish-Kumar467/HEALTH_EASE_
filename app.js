@@ -81,7 +81,7 @@ app.get("/views/dignose", (req, res) => {
 });
 
 app.get("/views/appointment", (req, res) => {
-  res.render("appointment.ejs"); // or the appropriate rendering method
+  res.render("appointment.ejs",{scheduledAppointment: scheduledAppointment || null}); // or the appropriate rendering method
 });
 
 app.get("/help", (req, res) => {
