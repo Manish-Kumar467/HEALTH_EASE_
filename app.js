@@ -173,7 +173,19 @@ app.post('/updateProfile', async (req, res) => {
     `;
     await db.query(query, [userId, name, sex, dob, location]);
 
-    res.redirect('/success'); // Redirect or send a success response
+     // Fetch the updated profile data
+     const result = await db.query(`
+      SELECT name, sex, dob, location
+      FROM info
+      WHERE user_id = $1`,
+      [userId]
+    );
+
+    const profile = result.rows[0]; // Get the updated profile data
+
+    // Send the updated profile to the front end
+    res.render('profile', { profile }); // Pass the profile data to the 'profile' view
+    // res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).send("An error occurred while updating the profile.");
