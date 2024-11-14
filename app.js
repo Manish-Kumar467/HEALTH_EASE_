@@ -304,11 +304,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    const user = result.rows[0];
-    if (user) {
-      req.session.userId = user.id; // Set userId in session during deserialization
-    }
-    done(null, user); // Deserialize user from ID
+    done(null, result.rows[0]); // Deserialize user from ID
   } catch (err) {
     done(err, null);
   }
