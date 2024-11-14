@@ -153,12 +153,12 @@ app.post("/register", async (req, res) => {
 
 // Route to handle profile update
 app.post('/updateProfile', async (req, res) => {
-  if (!req.session.userId) {
+  if (!req.session.user_id) {
     return res.status(401).send("Unauthorized");
   }
 
   const { name, sex, dob, location } = req.body;
-  const userId = req.session.userId;
+  const user_id = req.session.user_id;
 
   try {
     const query = `
@@ -167,7 +167,7 @@ app.post('/updateProfile', async (req, res) => {
       ON CONFLICT (user_id)
       DO UPDATE SET name = $2, sex = $3, dob = $4, location = $5
     `;
-    await db.query(query, [userId, name, sex, dob, location]);
+    await db.query(query, [user_id, name, sex, dob, location]);
 
     res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
