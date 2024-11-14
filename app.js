@@ -187,7 +187,7 @@ app.post('/updateProfile', async (req, res) => {
     }
 
     // Send the updated profile to the front end
-    res.render('index', { profile: profile || null }); // Pass the profile data to the 'profile' view
+    res.render('profile', { profile: profile || null }); // Pass the profile data to the 'profile' view
     // res.redirect('/success'); // Redirect or send a success response
   } catch (error) {
     console.error("Error updating profile:", error);
