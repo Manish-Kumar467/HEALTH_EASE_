@@ -257,18 +257,30 @@ app.post("/predict", (req, res) => {
   // Spawn Python process
   const pythonProcess = spawn("python3", ["predict.py", ...features]); // ..feature? // 
 
+  let responseSent = false; // Flag to track if the response is already send
+
   pythonProcess.on("error", (err) => {
     console.error("Failed to start Python process:", err);
+    if(!responseSent){
+      responseSent = true; // Preventing sending a second response
+      res.status(500).send({ error: "Failed to start Python process" });
+    }
   });
 
   pythonProcess.stdout.on("data", (data) => {
     const prediction = data.toString().trim();
-    res.send({ prediction });
+    if(!responseSent){
+      responseSent = true; // prevent sending second response
+      res.send({ prediction });
+    }
   });
 
   pythonProcess.stderr.on("data", (error) => {
     console.error("Error:", error.toString());
-    res.status(500).send({ error: "Prediction error" });
+    if(!responseSent){
+      responseSent = true; // prevent sending a second respond
+      res.status(500).send({ error: "Prediction error" });
+    }
   });
 });
 
