@@ -271,7 +271,12 @@ app.post("/predict", (req, res) => {
     const prediction = data.toString().trim();
     if(!responseSent){
       responseSent = true; // prevent sending second response
-      res.send({ prediction });
+      // res.send({ prediction });
+      if(prediction === "1") {
+        res.send({ prediction: 1 }); // sending 1 for heart disease detected   
+      } else {
+        res.send({ prediction: 0 }); // sending 0 for no heart disease
+      }
     }
   });
 

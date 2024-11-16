@@ -31,7 +31,10 @@
 
         const data = await response.json();
         if (response.ok) {
-          alert(`Prediction: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+            // Handle the prediction based on number (0 or 1)
+            const predictionMessage = data.prediction === 1? "Heart Disease Detected" : "No Heart Disease";
+          // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+          alert(`Prediction done: ${predictionMessage}`);
           result.textContent = `Prediction: ${data.prediction}`;
         } else {
             console.log("data.error occured");
