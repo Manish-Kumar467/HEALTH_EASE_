@@ -1,8 +1,16 @@
 import sys
 from joblib import load
 import numpy as np
+import pandas as pd
 import os 
 import sklearn
+
+# Define the feature names
+FEATURE_NAMES = [
+    'age', 'sex', 'trestbps', 'chol', 'fbs', 'thalach', 'exang', 'oldpeak', 
+    'slope', 'ca', 'cp_1', 'cp_2', 'cp_3', 'restecg_1', 'restecg_2', 
+    'thal_1', 'thal_2', 'thal_3'
+]
 
 print(sklearn.__version__)
 # Load the model
@@ -29,8 +37,11 @@ except Exception as e:
 # Parse input from Node.js
 try:
     input_data = list(map(float, sys.argv[1:]))  # Accept comma-separated features # get the values from node js as sys.argv
-    input_array = np.array(input_data).reshape(1, -1)
-    print(f"Input data: {input_array}")
+    # input_array = np.array(input_data).reshape(1, -1)
+
+    # Convert input array to DataFrame with feature names
+    input_df = pd.DataFrame([input_data], columns=FEATURE_NAMES)
+    print(f"Input data: {input_df}")
 except Exception as e:
     print(f"Error parsing input data: {e}")
     sys.exit(1)
@@ -38,7 +49,7 @@ except Exception as e:
 
 # Make prediction
 try:
-    prediction = model.predict(input_array)
+    prediction = model.predict(input_df)
     # Return prediction result
     print(prediction[0])  # Output 1 for disease, 0 for no disease
 except Exception as e:
