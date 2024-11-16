@@ -36,6 +36,9 @@ except Exception as e:
 
 # Parse input from Node.js
 try:
+    # check sys.argv for input data
+    print("Received arguments: ", sys.argv[1:]) # Log received arguments for debugging
+
     input_data = list(map(float, sys.argv[1:]))  # Accept comma-separated features # get the values from node js as sys.argv
     # input_array = np.array(input_data).reshape(1, -1)
 
