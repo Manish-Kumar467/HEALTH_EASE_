@@ -44,7 +44,7 @@ try:
 
     # Convert input array to DataFrame with feature names
     input_df = pd.DataFrame([input_data], columns=FEATURE_NAMES)
-    print(f"Input data: {input_df}")
+    print(f"Input DataFrame:\n {input_df}")
 except Exception as e:
     print(f"Error parsing input data: {e}")
     sys.exit(1)

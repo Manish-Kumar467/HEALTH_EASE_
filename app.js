@@ -254,6 +254,8 @@ app.post("/predict", (req, res) => {
     return res.status(400).send({ error: "Invalid input data" });
   }
 
+  console.log("Features received:", features); // Log the features
+
   // Spawn Python process
   const pythonProcess = spawn("python3", ["predict.py", ...features]); // ..feature? // 
 
