@@ -9,16 +9,17 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
 const axios = require('axios');
-const FormData = require
+// const FormData = require
+const { spawn } = require("child_process");
 
 
 dotenv.config();
 
-const { PythonShell } = require('python-shell');
+// const { PythonShell } = require('python-shell');
 
 const app = express();
 
-app.use(express.json());
+// app.use(express.json());
 
 const port = process.env.PORT || 3000; // Updated for Railway
 
@@ -47,7 +48,9 @@ app.use(
 );
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); // false
+app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, "public"))); // Ensure correct path for static files
 
 // View Engine Setup
@@ -83,6 +86,10 @@ app.get("/views/dignose", (req, res) => {
 app.get("/views/appointment", (req, res) => {
   res.render("appointment.ejs"); // or the appropriate rendering method
 });
+
+app.get("/views/heartDiagnose", (req, res) => {
+  res.render("heartDiagnose.ejs");
+})
 
 app.get("/help", (req, res) => {
   res.render("help.ejs");
@@ -240,6 +247,43 @@ app.post('/appointment_schedule', async (req, res) => {
 });
 
 
+app.post("/predict", (req, res) => {
+  const { features } = req.body; // Expect an array of features
+  if (!features || !Array.isArray(features)) {
+    return res.status(400).send({ error: "Invalid input data" });
+  }
+
+  // Spawn Python process
+  const pythonProcess = spawn("python3", ["predict.py", ...features]); // ..feature? // 
+
+  pythonProcess.stdout.on("data", (data) => {
+    const prediction = data.toString().trim();
+    res.send({ prediction });
+  });
+
+  pythonProcess.stderr.on("data", (error) => {
+    console.error("Error:", error.toString());
+    res.status(500).send({ error: "Prediction error" });
+  });
+});
+
+// Test python execution on railway visit /test-python , if fail troubleshoot python installation in railway environment.
+app.get("/test-python", (req, res) => {
+  const pythonProcess = spawn("python3", ["--version"]);
+
+  pythonProcess.stdout.on("data", (data) => {
+    res.send(`Python version: ${data.toString()}`);
+  });
+
+  pythonProcess.stderr.on("data", (error) => {
+    res.status(500).send(`Error: ${error.toString()}`);
+  });
+  pythonProcess.on("close", () => {
+    res.send(`Python version: ${pythonVersion || "Python not found"}`);
+  });
+});
+
+
 
 // submiting and predicting disease
 // app.post("/submit-symptoms", async (req, res) => {
@@ -264,35 +308,35 @@ app.post('/appointment_schedule', async (req, res) => {
 //   }
 // });
 
-app.post("/submit-symptoms", (req, res) => {
-  const symptomsString = req.body.symptoms;
-  const symptomsArray = symptomsString.split(',').map(s => s.trim());
-  console.log(symptomsArray);
+// app.post("/submit-symptoms", (req, res) => {
+//   const symptomsString = req.body.symptoms;
+//   const symptomsArray = symptomsString.split(',').map(s => s.trim());
+//   console.log(symptomsArray);
 
-  let options = {
-      mode: 'text',
-      pythonOptions: ['-u'], // unbuffered output
-      args: [JSON.stringify(symptomsArray)]
-  };
+//   let options = {
+//       mode: 'text',
+//       pythonOptions: ['-u'], // unbuffered output
+//       args: [JSON.stringify(symptomsArray)]
+//   };
 
-  let python = require('python-shell');
-  python.PythonShell.run('predict.py', options, function (err, results) {
-      if (err) {
-          console.error("Error in Python script:", err);
-          return res.status(500).send("An error occurred while predicting the disease.");
-      }
+//   let python = require('python-shell');
+//   python.PythonShell.run('predict.py', options, function (err, results) {
+//       if (err) {
+//           console.error("Error in Python script:", err);
+//           return res.status(500).send("An error occurred while predicting the disease.");
+//       }
       
-      try {
-          const prediction = JSON.parse(results[0]);
-          const predictedDisease = prediction.disease;
-          console.log(predictedDisease);
-          res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
-      } catch (parseError) {
-          console.error("Error parsing prediction result:", parseError);
-          res.status(500).send("An error occurred while parsing the prediction result.");
-      }
-  });
-});
+//       try {
+//           const prediction = JSON.parse(results[0]);
+//           const predictedDisease = prediction.disease;
+//           console.log(predictedDisease);
+//           res.send(`<script>alert('Predicted Disease: ${predictedDisease}'); window.location.href = "/";</script>`);
+//       } catch (parseError) {
+//           console.error("Error parsing prediction result:", parseError);
+//           res.status(500).send("An error occurred while parsing the prediction result.");
+//       }
+//   });
+// });
 
 
 
@@ -312,6 +356,7 @@ passport.use(
         const valid = await bcrypt.compare(password, user.password); // Compare passwords
         if (valid) {
           req.session.userId = user.id;
+          console.log("User ID for current session: "+user.id);
           return done(null, user); // Successful login
         } else {
           return done(null, false, { message: "Incorrect password." });
@@ -347,6 +392,7 @@ passport.use(
             [profile.email, "google"] // Dummy password for Google users
           );
           req.session.userId = user.id; // Set userId in session
+          console.log("User Id for current session: "+ user.id);
           return done(null, newUser.rows[0]);
         } else {
           return done(null, result.rows[0]);
@@ -360,12 +406,14 @@ passport.use(
 
 // Passport Serialize/Deserialize
 passport.serializeUser((user, done) => {
+  console.log("Serialize: user id"+ user.id);
   done(null, user.id); // Serialize user ID
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    console.log("Deserialize: user id: "+ id);
     done(null, result.rows[0]); // Deserialize user from ID
   } catch (err) {
     done(err, null);

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Prediction</title>
+</head>
+<body>
+  <h1>Heart Disease Prediction</h1>
+  <form id="predictionForm">
+    <label for="features">Enter Features (comma-separated):</label><br>
+    <input type="text" id="features" name="features" required><br><br>
+    <button type="submit">Predict</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    const form = document.getElementById("predictionForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const features = document.getElementById("features").value.split(",").map(Number);
+
+      try {
+        const response = await fetch("https://nodejs-production-da22.up.railway.app/predict", { // "https://your-railway-url.onrender.com/predict"
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ features })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(`Prediction: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+          result.textContent = `Prediction: ${data.prediction}`;
+        } else {
+          alert(`Error: ${data.error}`);
+          result.textContent = `Error: ${data.error}`;
+        }
+      } catch (err) {
+        alert("An error occurred");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

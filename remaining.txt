@@ -6,13 +6,13 @@ Home page button route and disease page navbar and about, contact button correct
 Making table for saving user Profile(name, sex, dob, age, location) and in same or different table save disease diagonse info
 (which symptoms , disease) (DONE)
 
-Disease dignose page , think how to add the disease for selection (URGENT) correct the dropdown method and method of selection.
+Disease dignose page , think how to add the disease for selection (URGENT) correct the dropdown method and method of selection.(CHANGE)
 
 Flask task on integrating to show result for the input (URGENT)
 
-Profile page which shows the user info. and null if new user
+Profile page which shows the user info. and null if new user(DONE)
 
-And side panel of profile should show user info in placeholder if added earlier.
+And side panel of profile should show user info in placeholder if added earlier.(DONE)
 
 correcting the footer links (DONE)
 
@@ -23,10 +23,10 @@ getting the fonts of navbar and other place(dignose page and other) corrected
 
 improving the frontend 
 
-adding picture of user 
+adding picture of user (DONE)
 
-appointment scheduling 
+appointment scheduling (DONE)
 
-disease discription, exercise, food 
+disease discription, exercise, food (ELIMINATE)
 
 disclaimer message to visit doctor for medications
