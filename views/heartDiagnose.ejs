@@ -34,6 +34,7 @@
           alert(`Prediction: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
           result.textContent = `Prediction: ${data.prediction}`;
         } else {
+            console.log("data.error occured");
           alert(`Error: ${data.error}`);
           result.textContent = `Error: ${data.error}`;
         }

@@ -11,6 +11,7 @@ const path = require("path");
 const axios = require('axios');
 // const FormData = require
 const { spawn } = require("child_process");
+const { exec } = require("child_process");
 
 
 dotenv.config();
@@ -256,6 +257,10 @@ app.post("/predict", (req, res) => {
   // Spawn Python process
   const pythonProcess = spawn("python3", ["predict.py", ...features]); // ..feature? // 
 
+  pythonProcess.on("error", (err) => {
+    console.error("Failed to start Python process:", err);
+  });
+
   pythonProcess.stdout.on("data", (data) => {
     const prediction = data.toString().trim();
     res.send({ prediction });
@@ -268,18 +273,33 @@ app.post("/predict", (req, res) => {
 });
 
 // Test python execution on railway visit /test-python , if fail troubleshoot python installation in railway environment.
-app.get("/test-python", (req, res) => {
-  const pythonProcess = spawn("python3", ["--version"]);
+app.get("/check-python", (req, res) => {
+  const { spawn } = require("child_process");
+
+  const pythonProcess = spawn("python", ["--version"]);
+  let output = "";
 
   pythonProcess.stdout.on("data", (data) => {
-    res.send(`Python version: ${data.toString()}`);
+      output += data.toString();
   });
 
-  pythonProcess.stderr.on("data", (error) => {
-    res.status(500).send(`Error: ${error.toString()}`);
+  pythonProcess.stderr.on("data", (err) => {
+      console.error(`Error: ${err}`);
   });
+
   pythonProcess.on("close", () => {
-    res.send(`Python version: ${pythonVersion || "Python not found"}`);
+      res.send(`Python version: ${output || "Python not found"}`);
+  });
+});
+
+
+app.get("/python-path", (req, res) => {
+  exec("which python3", (err, stdout, stderr) => {
+      if (err) {
+          console.error(`Error: ${stderr}`);
+          return res.status(500).send("Python not found.");
+      }
+      res.send(`Python3 Path: ${stdout}`);
   });
 });
 
