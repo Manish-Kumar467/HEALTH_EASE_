@@ -560,16 +560,16 @@ p#result {
             // Handle the prediction based on number (0 or 1)
             // const predictionMessage = data.prediction === 1? "Heart Disease Detected" : "No Heart Disease";
             // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
-            if (data.prediction === 1) {
-            const predictionMessage = "Heart Disease Detected";
-            result.textContent = `Prediction: ${data.prediction} (${predictionMessage})`;
+            if (data.prediction === '1') {
+            const predictionMessage = "Heart Disease Detected! This is only a prediction You can schedule an appointment for the prescription of the doctor";
+            result.textContent = `Prediction:  ${predictionMessage}`;
             } else {
-            const predictionMessage = "No Heart Disease";
-            result.textContent = `Prediction: ${data.prediction} (${predictionMessage})`;
+            const predictionMessage = "No Heart Disease! This is a prediction you can schedule an appointment to get precription from the doctor";
+            result.textContent = `Prediction: ${predictionMessage}`;
             }
 
         //   alert(`Prediction done: ${predictionMessage}`);
-          result.textContent = `Prediction: ${data.prediction}`;
+          result.textContent = `Prediction: ${data.predictionMessage}`;
         } else {
             console.log("data.error occured");
         //   alert(`Error: ${data.error}`);
