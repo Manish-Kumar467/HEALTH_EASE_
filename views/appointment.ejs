@@ -131,6 +131,7 @@ background-size: cover;
 height: 15vh;
 }
 
+
 .container-wrapper, .about-container, .footer-container {
 width: 80%; /* Consistent width for all containers */
   max-width: 1200px; /* Optional: limit width for larger screens */
@@ -212,11 +213,34 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color:#4d7929;
             width:20vw;
         }
+        form{
+            gap:10px;
+        }
 form label {
   font-weight: bold; /* Makes the text bold */
   display: block; /* Ensures labels are on their own line */
   margin-bottom: 5px; /* Adds spacing between the label and the input */
+  
+    font-family: 'Arial', sans-serif; /* Smooth, modern font */
+    font-size: 20px; /* Larger size for emphasis */
+    font-weight: 700; /* Bold to make it stand out */
+    text-align: center; /* Center-align the text */
+    color: black; /* A vibrant color for the text */
+    text-transform: uppercase; /* Uppercase for added boldness */
+    letter-spacing: 2px; /* Slight spacing between letters */
+    margin-top: 50px; /* Add space from the top */
+    margin-bottom: 20px; /* Space between heading and other elements */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
+
+@media (max-width: 768px) {
+    form label {
+        font-size: 20px; /* Slightly smaller on mobile screens */
+        margin-top: 30px; /* Adjust margin on small screens */
+    }
+}
+
+
 body {
   background: radial-gradient(circle, #d0f7d4, #a8e6e0);
   margin: 0;
