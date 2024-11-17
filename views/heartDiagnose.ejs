@@ -572,9 +572,9 @@ p#result {
         //   alert(`Prediction done: ${predictionMessage}`);
           result.textContent = `Prediction: ${data.prediction}`;
           if(data.prediction === 1){
-            result.innerHTML = "<img src='../public/assets/icons/heart-pulse-fill.svg'><br>Heart Disease Detected! <br> This is only a prediction You can schedule an appointment for the prescription of the doctor. <br> Prediction Model accuracy: 81%";
+            result.innerHTML = "<img src='/assets/icons/heart-pulse-fill.svg'><br>Heart Disease Detected! <br> This is only a prediction You can schedule an appointment for the prescription of the doctor. <br> Prediction Model accuracy: 81%";
           }else if (data.prediction === 0){
-            result.innerHTML = "<img src='../public/assets/icons/chat-square-heart.svg'><br>No Heart Disease! <br> This is only a prediction you can schedule an appointment to get precription from the doctor.  <br> Prediction Model accuracy: 81%";
+            result.innerHTML = "<img src='/assets/icons/chat-square-heart.svg'><br>No Heart Disease! <br> This is only a prediction you can schedule an appointment to get precription from the doctor.  <br> Prediction Model accuracy: 81%";
           }else{
             result.innerHTML = "<br>Error in message";
           }
