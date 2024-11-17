@@ -293,24 +293,24 @@ app.post("/predict", (req, res) => {
 });
 
 // Test python execution on railway visit /test-python , if fail troubleshoot python installation in railway environment.
-app.get("/check-python", (req, res) => {
-  const { spawn } = require("child_process");
+// app.get("/check-python", (req, res) => {
+//   const { spawn } = require("child_process");
 
-  const pythonProcess = spawn("python", ["--version"]);
-  let output = "";
+//   const pythonProcess = spawn("python", ["--version"]);
+//   let output = "";
 
-  pythonProcess.stdout.on("data", (data) => {
-      output += data.toString();
-  });
+//   pythonProcess.stdout.on("data", (data) => {
+//       output += data.toString();
+//   });
 
-  pythonProcess.stderr.on("data", (err) => {
-      console.error(`Error: ${err}`);
-  });
+//   pythonProcess.stderr.on("data", (err) => {
+//       console.error(`Error: ${err}`);
+//   });
 
-  pythonProcess.on("close", () => {
-      res.send(`Python version: ${output || "Python not found"}`);
-  });
-});
+//   pythonProcess.on("close", () => {
+//       res.send(`Python version: ${output || "Python not found"}`);
+//   });
+// });
 
 
 app.get("/python-path", (req, res) => {

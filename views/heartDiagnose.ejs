@@ -6,20 +6,183 @@
   <title>Heart Disease Prediction</title>
 </head>
 <body>
-  <h1>Heart Disease Prediction</h1>
-  <form id="predictionForm">
-    <label for="features">Enter Features (comma-separated):</label><br>
-    <input type="text" id="features" name="features" required><br><br>
-    <button type="submit">Predict</button>
-  </form>
-  <p id="result"></p>
+    <h1>Heart Disease Prediction</h1>
+
+    <form id="predictionForm">
+      <!-- Age -->
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required><br><br>
+  
+      <!-- Sex -->
+      <label for="sex">Sex:</label>
+      <select id="sex" name="sex" required>
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+      </select><br><br>
+  
+      <!-- Trestbps -->
+      <label for="trestbps">Resting Blood Pressure:</label>
+      <input type="number" step="any" id="trestbps" name="trestbps" required><br><br>
+  
+      <!-- Chol -->
+      <label for="chol">Cholesterol:</label>
+      <input type="number" step="any" id="chol" name="chol" required><br><br>
+  
+      <!-- FBS -->
+      <label for="fbs">Fasting Blood Sugar:</label>
+      <select id="fbs" name="fbs" required>
+        <option value="0">False</option>
+        <option value="1">True</option>
+      </select><br><br>
+  
+      <!-- Thalach -->
+      <label for="thalach">Maximum Heart Rate Achieved:</label>
+      <input type="number" step="any" id="thalach" name="thalach" required><br><br>
+  
+      <!-- Exang -->
+      <label for="exang">Exercise-Induced Angina:</label>
+      <input type="radio" id="exang_no" name="exang" value="0" checked>
+      <label for="exang_no">No</label>
+      <input type="radio" id="exang_yes" name="exang" value="1">
+      <label for="exang_yes">Yes</label><br><br>
+  
+      <!-- Oldpeak -->
+      <label for="oldpeak">Oldpeak:</label>
+      <input type="number" step="any" id="oldpeak" name="oldpeak" required><br><br>
+  
+      <!-- Slope -->
+      <label for="slope">Slope:</label>
+      <select id="slope" name="slope" required>
+        <option value="0">Upsloping</option>
+        <option value="1">Flat</option>
+        <option value="2">Downsloping</option>
+      </select><br><br>
+  
+      <!-- CA -->
+      <label for="ca">Number of Major Vessels:</label>
+      <input type="radio" id="ca_0" name="ca" value="0" checked>
+      <label for="ca_0">0</label>
+      <input type="radio" id="ca_1" name="ca" value="1">
+      <label for="ca_1">1</label>
+      <input type="radio" id="ca_2" name="ca" value="2">
+      <label for="ca_2">2</label>
+      <input type="radio" id="ca_3" name="ca" value="3">
+      <label for="ca_3">3</label>
+      <input type="radio" id="ca_4" name="ca" value="4">
+      <label for="ca_4">4</label><br><br>
+  
+      <!-- CP -->
+      <label for="cp">Chest Pain Type:</label>
+      <select id="cp" name="cp" required>
+        <option value="1,0,0">Typical Angina</option>
+        <option value="1,0,0">Atypical Angina</option>
+        <option value="0,1,0">Non-Anginal Pain</option>
+        <option value="0,0,1">Asymptomatic</option>
+      </select><br><br>
+  
+      <!-- Restecg -->
+      <label for="restecg">Resting ECG:</label>
+      <select id="restecg" name="restecg" required>
+        <option value="1,0">Normal</option>
+        <option value="1,0">ST-T Wave Abnormality</option>
+        <option value="0,1">Left Ventricular Hypertrophy</option>
+      </select><br><br>
+  
+      <!-- Thal -->
+      <label for="thal">Thalassemia:</label>
+      <select id="thal" name="thal" required>
+        <option value="1,0,0">Normal</option>
+        <option value="0,1,0">Fixed Defect</option>
+        <option value="0,0,1">Reversible Defect</option>
+      </select><br><br>
+  
+      <!-- Output Text Area -->
+      <label for="features">Selected Features:</label><br>
+      <textarea id="features" name="features" rows="4" readonly></textarea><br><br>
+  
+      <!-- Submit Button -->
+      <button type="submit">Predict</button>
+    </form>
+  
+    <p id="result"></p>
 
   <script>
+    const lambdas = {
+      age: 1.188462507146636,
+      trestbps: -0.5669617411432346,
+      chol: -0.12552640563584697,
+      thalach: 2.445456150508822,
+      oldpeak: 0.1775977493840191
+    };
+
+    function boxCoxTransform(value, lambda) {
+      if (value === "" || isNaN(value)) return "";
+      value = parseFloat(value);
+      if (lambda === 0) {
+        return Math.log(value).toFixed(4); // Log transformation if lambda is 0
+      }
+      return ((Math.pow(value, lambda) - 1) / lambda).toFixed(4);
+    }
+
     const form = document.getElementById("predictionForm");
+    const featuresField = document.getElementById("features");
+
+    // Function to update the features textarea
+    // function updateFeatures() {
+    //   const age = document.getElementById("age").value || "";
+    //   const sex = document.getElementById("sex").value || "";
+    //   const trestbps = document.getElementById("trestbps").value || "";
+    //   const chol = document.getElementById("chol").value || "";
+    //   const fbs = document.getElementById("fbs").value || "";
+    //   const thalach = document.getElementById("thalach").value || "";
+    //   const exang = document.querySelector("input[name='exang']:checked").value || "";
+    //   const oldpeak = document.getElementById("oldpeak").value || "";
+    //   const slope = document.getElementById("slope").value || "";
+    //   const ca = document.querySelector("input[name='ca']:checked").value || "";
+    //   const cp = document.getElementById("cp").value || "";
+    //   const restecg = document.getElementById("restecg").value || "";
+    //   const thal = document.getElementById("thal").value || "";
+
+    //   // Update features field
+    //   featuresField.value = [age, sex, trestbps, chol, fbs, thalach, exang, oldpeak, slope, ca, cp, restecg, thal]
+    //     .filter(value => value !== "")
+    //     .join(",");
+    // }
+    function updateFeatures() {
+      const age = boxCoxTransform(document.getElementById("age").value, lambdas.age);
+      const trestbps = boxCoxTransform(document.getElementById("trestbps").value, lambdas.trestbps);
+      const chol = boxCoxTransform(document.getElementById("chol").value, lambdas.chol);
+      const thalach = boxCoxTransform(document.getElementById("thalach").value, lambdas.thalach);
+      const oldpeak = boxCoxTransform(document.getElementById("oldpeak").value, lambdas.oldpeak);
+      const sex = document.getElementById("sex").value;
+      const fbs = document.getElementById("fbs").value;
+      const exang = document.querySelector("input[name='exang']:checked").value;
+      const slope = document.getElementById("slope").value;
+      const ca = document.querySelector("input[name='ca']:checked").value;
+      const cp = document.getElementById("cp").value;
+      const restecg = document.getElementById("restecg").value;
+      const thal = document.getElementById("thal").value;
+
+      document.getElementById("features").value = [
+        age, sex, trestbps, chol, fbs, thalach, exang, oldpeak, slope, ca, cp, restecg, thal
+      ].filter(value => value !== "").join(",");
+    }
+
+    // Add event listeners to all inputs
+    form.querySelectorAll("input, select").forEach(input => {
+      input.addEventListener("input", updateFeatures);
+      input.addEventListener("change", updateFeatures);
+    });
+
+
+
+    // const form = document.getElementById("predictionForm");
     const result = document.getElementById("result");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const features1 = featuresField.value.split(",").map(Number);//
+
       const features = document.getElementById("features").value.trim().split(",").map(Number);
         console.log("features from frontend"+features );
 
@@ -47,18 +210,25 @@
             result.textContent = `Prediction: ${data.prediction} (${predictionMessage})`;
             }
 
-          alert(`Prediction done: ${predictionMessage}`);
+        //   alert(`Prediction done: ${predictionMessage}`);
           result.textContent = `Prediction: ${data.prediction}`;
         } else {
             console.log("data.error occured");
-          alert(`Error: ${data.error}`);
+        //   alert(`Error: ${data.error}`);
           result.textContent = `Error: ${data.error}`;
         }
       } catch (err) {
-        alert("An error occurred");
+        // alert("An error occurred");
         console.error(err);
       }
     });
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
