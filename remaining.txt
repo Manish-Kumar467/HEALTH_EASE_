@@ -1,7 +1,7 @@
 Things remaining :
-Appointment + Bed and room scheduling for staff
+Appointment + Bed and room scheduling for staff(DONE)
 
-Billing for staff
+Billing for staff (DONE)
 
 Three different people login
 
