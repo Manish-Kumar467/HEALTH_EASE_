@@ -1,3 +1,4 @@
+<!-- make the final message more longer or in different lines , images of ! mark when detected and tick image when not detected -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -571,11 +572,11 @@ p#result {
         //   alert(`Prediction done: ${predictionMessage}`);
           result.textContent = `Prediction: ${data.prediction}`;
           if(data.prediction === 1){
-            result.textContent = "Heart Disease Detected! \n This is only a prediction You can schedule an appointment for the prescription of the doctor \n Prediction Model accuracy: 81%";
+            result.innerHTML = "<img src='../public/assets/icons/heart-pulse-fill.svg'><br>Heart Disease Detected! <br> This is only a prediction You can schedule an appointment for the prescription of the doctor. <br> Prediction Model accuracy: 81%";
           }else if (data.prediction === 0){
-            result.textContent = "No Heart Disease! \n This is only a prediction you can schedule an appointment to get precription from the doctor  \n Prediction Model accuracy: 81%";
+            result.innerHTML = "<img src='../public/assets/icons/chat-square-heart.svg'><br>No Heart Disease! <br> This is only a prediction you can schedule an appointment to get precription from the doctor.  <br> Prediction Model accuracy: 81%";
           }else{
-            result.textContent = "Error in message";
+            result.innerHTML = "<br>Error in message";
           }
           
         } else {
