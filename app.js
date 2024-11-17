@@ -91,6 +91,9 @@ app.get("/views/appointment", (req, res) => {
 app.get("/views/heartDiagnose", (req, res) => {
   res.render("heartDiagnose.ejs");
 })
+app.get("/views/profile", (req, res) => {
+  res.render("profile.ejs");
+})
 
 app.get("/help", (req, res) => {
   res.render("help.ejs");
