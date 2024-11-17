@@ -22,9 +22,9 @@ else:
     print(f"Model file found at {model_path}")
 
 try:
-    # with open(model_path, "rb") as file:
-    #     model = joblib.load(file)
-    model = load(model_path) # (Standard way) Automatically handles file opening and closing
+    with open(model_path, "rb") as file:
+        model = load(file)
+    # model = load(model_path) # (Standard way) Automatically handles file opening and closing
     print("Model loaded successfully.")
     print(f"Loaded object type: {type(model)}")
     # Check if the model has the predict method
@@ -54,7 +54,7 @@ except Exception as e:
 try:
     prediction = model.predict(input_df)
     # Return prediction result
-    print(prediction[0])  # Output 1 for disease, 0 for no disease
+    print(f"Prediction[0] from predict.py file: {prediction[0]}")  # Output 1 for disease, 0 for no disease
 except Exception as e:
     print(f"Error making prediction: {e}")
     sys.exit(1)
