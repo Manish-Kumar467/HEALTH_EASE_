@@ -1,79 +1,240 @@
+<!-- Improve the heading of each page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Help - Heart Disease Diagnosis</title>
     <style>
-body{
-    background:radial-gradient(circle, #d0f7d4, #a8e6e0);
-}
+        body {
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-.faq-item {
-  margin: 10px 0;
-}
-.answer {
-  display: none; /* Hidden by default */
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-}
-.question {
-  width: 100%;
-  background-color: #073809;
-  color: white;
-  border: none;
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
-}
-.question:focus {
-  outline: none;
-}
-.answer{
-    background:white;
-}
+        h1, h2 {
+            text-align: center;
+            color: #073809;
+            margin-top: 20px;
+        }
 
+        .faq-item {
+            margin: 10px 0;
+        }
+
+        .answer {
+            display: none;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .question {
+            width: 100%;
+            background: linear-gradient(to right, #073809, #187c1c);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+          background: linear-gradient(to right, #187c1c, #073809);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .question:focus {
+            outline: none;
+        }
+
+        .answer {
+          display: none;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        line-height: 1.6;
+        color: #333;
+        }
+
+        .section {
+            margin: 30px auto;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question:active {
+          transform: scale(0.98);
+        }
+
+        .contact-info, .symptoms-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-info a {
+            color: #073809;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+        }
+        ul {
+          padding-left: 20px;
+          list-style-type: square;
+        }
     </style>
 </head>
 <body>
-    
-<h1> YOU CAN FIND HELP HERE  </h1>
-<h2>Some Frequently Asked questions(FAQs)</h2>
-<div class="faq-item">
-    <button class="question">->How can I reach to diagnosis support system from the home page of the website?</button>
+
+<h1>HELP CENTER</h1>
+<h2>Frequently Asked Questions (FAQs)</h2>
+
+<!-- Symptoms Section -->
+<div class="section">
+    <button class="question">Understanding Heart Disease Symptoms</button>
     <div class="answer">
-     You can reach there by clicking on the disease diagnosis option on the top(Navigation bar) of the website. 
+        <p>Our heart disease diagnosis system uses a variety of symptoms to help predict the likelihood of heart disease. Some of the most common symptoms include:</p>
+        <ul>
+            <li><strong>Chest Pain:</strong> A common symptom, often associated with a heart attack.</li>
+            <li><strong>Shortness of Breath:</strong> Difficulty breathing or feeling winded can indicate heart issues.</li>
+            <li><strong>Fatigue:</strong> Unusual tiredness, especially after minimal physical activity, could be a sign of heart disease.</li>
+            <li><strong>Dizziness or Lightheadedness:</strong> Can occur when the heart is not pumping blood effectively.</li>
+            <li><strong>Swelling in the Legs or Feet:</strong> This can indicate that the heart is struggling to pump blood properly.</li>
+        </ul>
+        <p>If you experience any of these symptoms, please contact a healthcare professional immediately.</p>
     </div>
-  </div>
-<div class="faq-item">
-    <button class="question">->How do I select symptoms on the diagnose support system on desktop?</button>
+</div>
+
+<!-- Tips for Heart Health Section -->
+<div class="section">
+    <button class="question">Tips for Maintaining a Healthy Heart</button>
     <div class="answer">
-    You can select them by pressing ctrl + clicking on options 
+        <ul>
+            <li>Eat a balanced diet rich in fruits, vegetables, and whole grains.</li>
+            <li>Engage in regular physical activity, such as walking, swimming, or cycling.</li>
+            <li>Maintain a healthy weight and avoid smoking.</li>
+            <li>Limit alcohol consumption and manage stress levels.</li>
+            <li>Get regular checkups with your doctor, especially if you have a family history of heart disease.</li>
+        </ul>
     </div>
-  </div>
-<div class="faq-item">
-    <button class="question">->How can I contact you?</button>
+</div>
+
+<!-- Contact Information Section -->
+<div class="section">
+    <button class="question">Contact Us</button>
     <div class="answer">
-    You can email us by clicking given at the end of the Home page of the website.
+        <p>If you need assistance or have questions, you can contact us in the following ways:</p>
+        <a href="mailto:support@healthcare.com">Email: support@healthcare.com</a><br>
+        <a href="tel:+1234567890">Phone: +123 456 7890</a>
+        <p>We are here to assist you with any questions or concerns you may have!</p>
     </div>
-  </div>
-  
-  
+</div>
+
+<!-- Diagnosis Process Section -->
+<div class="section">
+    <button class="question">How the Diagnosis Process Works</button>
+    <div class="answer">
+        <p>Our system uses the symptoms you provide to predict the likelihood of heart disease. The process is simple:</p>
+        <ul>
+            <li>Step 1: You will select your symptoms from a list.</li>
+            <li>Step 2: Our system analyzes the data based on a trained model and provides a prediction.</li>
+            <li>Step 3: The system will display the likelihood of heart disease and provide recommendations.</li>
+        </ul>
+        <p style="color: green;">We encourage you to visit a healthcare professional for confirmation and further examination if necessary.</p>
+    </div>
+</div>
+
+<!-- Heart Disease Diagnosis Symptoms Section -->
+<div class="section">
+    <button class="question">Heart Disease Diagnosis Symptoms</button>
+    <div class="answer">
+        <h3 style="color: green;">1. Resting Blood Pressure (in mm Hg)</h3>
+        <p>This refers to the pressure in your arteries when your heart is resting between beats. A higher resting blood pressure may indicate potential heart disease.</p>
+
+        <h3 style="color: green;">2. Serum Cholesterol</h3>
+        <p>Cholesterol is a fatty substance in the blood that can build up in the arteries, leading to blockages. High serum cholesterol levels can increase the risk of heart disease.</p>
+
+        <h3 style="color: green;">3. Fasting Blood Sugar > 120 mg/dl</h3>
+        <p>Fasting blood sugar is the blood glucose level after an overnight fast. Elevated levels can indicate diabetes, which is a risk factor for heart disease.</p>
+
+        <h3 style="color: green;">4. Exercise-Induced Angina</h3>
+        <p>Angina is chest pain or discomfort caused by reduced blood flow to the heart. Exercise-induced angina occurs during physical exertion and can indicate heart disease.</p>
+
+        <h3 style="color: green;">5. ST Depression Induced by Exercise Relative to Rest (Oldpeak)</h3>
+        <p>Oldpeak refers to the difference in the ST segment of an ECG before and after exercise. ST depression during exercise is a sign of reduced oxygen supply to the heart muscle, which may indicate heart disease.</p>
+
+        <h3 style="color: green;">6. The Slope of the Peak Exercise ST Segment (Slope): Upsloping, Flat, Downsloping</h3>
+        <p>This measures the shape of the ST segment during exercise on an ECG. A downsloping ST segment is associated with a higher risk of heart disease, while an upsloping segment is considered normal.</p>
+
+        <h3 style="color: green;">7. Number of Major Vessels (0-4) Colored by Fluoroscopy</h3>
+        <p>This test measures the number of coronary arteries that are blocked or narrowed, with fluoroscopy used to highlight them. The higher the number of affected vessels, the greater the risk of heart disease.</p>
+
+        <h3 style="color: green;">8. Chest Pain Type</h3>
+        <p>Chest pain is categorized into:
+            <ul>
+                <li><strong>Typical Angina:</strong> Pain caused by restricted blood flow to the heart, often triggered by physical exertion.</li>
+                <li><strong>Atypical Angina:</strong> Pain not caused by physical exertion but still related to heart issues.</li>
+                <li><strong>Non-Anginal Pain:</strong> Chest pain not related to the heart.</li>
+                <li><strong>Asymptomatic:</strong> No pain present despite heart disease.</li>
+            </ul>
+        </p>
+
+        <h3 style="color: green;">9. Resting Electrocardiographic (ECG) Results</h3>
+        <p>The resting ECG measures the electrical activity of the heart. Abnormal results can indicate heart problems. The common types of abnormal results include:
+            <ul>
+                <li><strong>Normal:</strong> No signs of heart disease.</li>
+                <li><strong>ST-T Wave Abnormality:</strong> Indicates possible issues with heart muscle oxygenation.</li>
+                <li><strong>Left Ventricular Hypertrophy:</strong> Enlargement of the heart's left ventricle, which may signal heart disease.</li>
+            </ul>
+        </p>
+
+        <h3 style="color: green;">10. Thalassemia</h3>
+        <p>Thalassemia refers to abnormalities in the hemoglobin of red blood cells. It is categorized into:
+            <ul>
+                <li><strong>Normal:</strong> No abnormalities.</li>
+                <li><strong>Fixed Defect:</strong> A permanent abnormality, often linked to heart disease.</li>
+                <li><strong>Reversible Defect:</strong> A temporary abnormality, which can sometimes be reversed with treatment.</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
 <script>
+    const questions = document.querySelectorAll('.question');
 
-const questions = document.querySelectorAll('.question');
+    questions.forEach((question) => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isVisible = answer.style.display === 'block';
+            
+            // Close all answers
+            document.querySelectorAll('.answer').forEach((ans) => {
+                ans.style.display = 'none';
+            });
 
-questions.forEach(question => {
-  question.addEventListener('click', () => {
-    const answer = question.nextElementSibling;
-    answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-  });
-});
-
-
+            // Open clicked answer if it was not visible
+            if (!isVisible) {
+                answer.style.display = 'block';
+            }
+        });
+    });
 </script>
+
 </body>
-
-
 </html>

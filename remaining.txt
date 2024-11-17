@@ -13,7 +13,7 @@ graph for different factors number of bed, appointment, for each time, made
 
 make gif log and buttons (DONE)
 
-make more structured and filled 
+make more structured and filled (DONE)
 
 change the name of symptoms for user understandbility (DONE)
 
