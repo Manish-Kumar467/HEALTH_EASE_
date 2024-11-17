@@ -562,14 +562,15 @@ p#result {
             // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
             if (data.prediction === 1) {
             const predictionMessage = "Heart Disease Detected! This is only a prediction You can schedule an appointment for the prescription of the doctor";
-            result.textContent = `Prediction:  ${predictionMessage}`;
+            result.textContent = `Prediction:  ${data.prediction}${predictionMessage}`;
             } else {
             const predictionMessage = "No Heart Disease! This is a prediction you can schedule an appointment to get precription from the doctor";
-            result.textContent = `Prediction: ${predictionMessage}`;
+            result.textContent = `Prediction:${data.prediction} ${predictionMessage}`;
             }
 
         //   alert(`Prediction done: ${predictionMessage}`);
-          result.textContent = `Prediction: ${data.predictionMessage}`;
+          result.textContent = `Prediction: ${data.prediction}`;
+          
         } else {
             console.log("data.error occured");
         //   alert(`Error: ${data.error}`);
