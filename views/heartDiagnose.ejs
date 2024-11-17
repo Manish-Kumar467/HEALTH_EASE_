@@ -355,26 +355,26 @@ p#result {
 
     <form id="predictionForm">
       <!-- Age -->
-      <label for="age">Age:</label>
+      <label for="age">Patient Age:</label>
       <input type="number" id="age" name="age" required>
   
       <!-- Sex -->
-      <label for="sex">Sex:</label>
+      <label for="sex">Gender of Patient:</label>
       <select id="sex" name="sex" required>
         <option value="0">Male</option>
         <option value="1">Female</option>
       </select>
   
       <!-- Trestbps -->
-      <label for="trestbps">Resting Blood Pressure:</label>
+      <label for="trestbps">Resting Blood Pressure(in mm Hg):</label>
       <input type="number" step="any" id="trestbps" name="trestbps" required>
   
       <!-- Chol -->
-      <label for="chol">Cholesterol:</label>
+      <label for="chol">Serum Cholesterol:</label>
       <input type="number" step="any" id="chol" name="chol" required>
   
       <!-- FBS -->
-      <label for="fbs">Fasting Blood Sugar:</label>
+      <label for="fbs">Fasting Blood Sugar > 120 mg/dl:</label>
       <select id="fbs" name="fbs" required>
         <option value="0">False</option>
         <option value="1">True</option>
@@ -397,11 +397,11 @@ p#result {
 
   
       <!-- Oldpeak -->
-      <label for="oldpeak">Oldpeak:</label>
+      <label for="oldpeak">ST depression induced by exercise relative to rest (Oldpeak):</label>
       <input type="number" step="any" id="oldpeak" name="oldpeak" required>
   
       <!-- Slope -->
-      <label for="slope">Slope:</label>
+      <label for="slope">The slope of the peak exercise ST segment (Slope):</label>
       <select id="slope" name="slope" required>
         <option value="0">Upsloping</option>
         <option value="1">Flat</option>
@@ -410,7 +410,7 @@ p#result {
   
       <!-- CA -->
     <!-- CA -->
-<label for="ca">Number of Major Vessels:</label>
+<label for="ca">Number of Major Vessels (0-4) colored by flouroscopy:</label>
 <div class="radio-group">
     <input type="radio" id="ca_0" name="ca" value="0" checked>
     <label for="ca_0">0</label>
@@ -440,11 +440,11 @@ p#result {
       </select>
   
       <!-- Restecg -->
-      <label for="restecg">Resting ECG:</label>
+      <label for="restecg">Resting Electrocardiographic(ECG) results:</label>
       <select id="restecg" name="restecg" required>
         <option value="1,0">Normal</option>
         <option value="1,0">ST-T Wave Abnormality</option>
-        <option value="0,1">Left Ventricular Hypertrophy</option>
+        <option value="0,1">Showing probable or definite Left Ventricular Hypertrophy</option>
       </select>
   
       <!-- Thal -->
