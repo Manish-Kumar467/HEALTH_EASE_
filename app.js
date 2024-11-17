@@ -102,6 +102,10 @@ app.get("/help", (req, res) => {
   res.render("help.ejs");
 })
 
+app.get("/bill", (req, res) => {
+  res.render("bill.ejs");
+})
+
 app.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
