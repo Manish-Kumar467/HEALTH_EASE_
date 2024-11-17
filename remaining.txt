@@ -1,32 +1,17 @@
-Necessary:
-Logout button route(DONE)
+Things remaining :
+Appointment + Bed and room scheduling for staff
 
-Home page button route and disease page navbar and about, contact button correction (DONE)
+Billing for staff
 
-Making table for saving user Profile(name, sex, dob, age, location) and in same or different table save disease diagonse info
-(which symptoms , disease) (DONE)
+Three different people login
 
-Disease dignose page , think how to add the disease for selection (URGENT) correct the dropdown method and method of selection.(CHANGE)
+showing all records to staff
 
-Flask task on integrating to show result for the input (URGENT)
+showing prediction in some fancy way 
 
-Profile page which shows the user info. and null if new user(DONE)
+graph for different factors number of bed, appointment, for each time, made
 
-And side panel of profile should show user info in placeholder if added earlier.(DONE)
+make gif log and buttons 
 
-correcting the footer links (DONE)
+make more structured and filled 
 
-Extra :
-making logo click also take to home 
-
-getting the fonts of navbar and other place(dignose page and other) corrected 
-
-improving the frontend 
-
-adding picture of user (DONE)
-
-appointment scheduling (DONE)
-
-disease discription, exercise, food (ELIMINATE)
-
-disclaimer message to visit doctor for medications
