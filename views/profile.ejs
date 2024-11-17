@@ -43,12 +43,12 @@
 #fileInput {
  display: none;
 }
-/* .profilephotoandbutton{
-border:2px solid black;
+.profilephotoandbutton{
+
 display: flex;
 flex-direction: column;
 align-items: center;
-}*/
+}
 
 
 
@@ -73,10 +73,14 @@ body{
   
   
 }
+
+
 .sidebar{
   /* visibility: hidden; */
   /* background: radial-gradient(circle, #d0f7d4, #a8e6e0); */
- 
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
   width:50vw;
   height:100vh;
 }
@@ -87,6 +91,17 @@ body{
  width:50vw;
  height:100vh;
  
+}
+
+@media (max-width: 768px) {
+    .fullpage {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .sidebar,
+    .previousdata {
+        width: 100%; /* Make both sections take full width */
+    }
 }
 select{
   width: 10vh;
@@ -99,8 +114,9 @@ select{
     <div id="mySidebar" class="sidebar">
 
       <div class="sidebar-content">
-          <h2>Profile</h2>
+          
           <div class="profilephotoandbutton">
+            <h2>Profile</h2>
           <!-- Circular Profile Photo -->
           <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
               <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
@@ -182,7 +198,7 @@ select{
       </div>
       <div class="previousdata">
         <h1>THIS IS YOUR PREVIOUS DATA</h1>
-   
+   </div>
 
       <script>
                // Function to preview the uploaded image
