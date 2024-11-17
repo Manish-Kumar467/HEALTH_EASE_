@@ -193,39 +193,6 @@ overflow-y: auto;
   margin: 0 10px;
 }
 
-.sidebar {
-  height: 100%;
-  width: 30vw; /* Sidebar width */
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: radial-gradient(circle, #d0f7d4, #a8e6e0);
-  overflow-x: hidden;
-  transition: transform 0.3s ease;
-  padding-top: 60px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  transform: translateX(-100%); /* Start hidden */
-}
-
-
-.sidebar.open {
-  transform: translateX(0); 
-}
-
-.sidebar-content {
-  padding: 20px;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 36px;
-  cursor: pointer;
-}
-
-
 
 @media (max-width: 768px) {
   .container-wrapper, .about-container, .footer-container {
@@ -242,26 +209,6 @@ overflow-y: auto;
   }
 } 
 
-.profile-photo-container {
-   
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-}
-
-.profile-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    border: 2px solid #ccc; /* Circular border around the photo */
-    /* object-fit: cover; Ensures the photo fits within the circle */
-    cursor: pointer;
-    background-color: #f0f0f0; /* Optional: Adds a background color if no photo is set */
-}
-
-#fileInput {
-    display: none;
-}
 
 /* About section container */
 .about-container {
@@ -348,23 +295,25 @@ h2 {
                     <a class="nav-link active" aria-current="page" href="/start">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" id="profile-link">Profile</a>
+                    <a class="nav-link active" href="/views/profile" id="profile-link">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/views/dignose">DiseaseDiagnosis</a>
-                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
+                </li> -->
+
+                    <li class="nav-item">
+                  <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+            </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="#about-section">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="#footer-section">Help</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
-            </li>
+            
             </ul>
             <button class="btn btn-outline-success" type="submit">
                 <a class="nav-link" href="/logout">LogOut</a>
@@ -373,89 +322,7 @@ h2 {
     </div>
 </nav>
 
-    <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <div class="sidebar-content">
-          <h2>Profile</h2>
-          
-          <!-- Circular Profile Photo -->
-          <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
-              <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
-              <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
-            </div>
   
-        
-  <!-- Update Photo Button -->
-  <div style="padding:10px">
-    <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
-</div>
-
-          <form action="/updateProfile" method="POST">
-              <div class="form-group">
-                  <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-              </div>
-              <div class="form-group">
-                  <label for="sex">Sex:</label>
-                  <select class="form-control" id="sex" name="sex">
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Others">Others</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="dob">Date of Birth (DOB):</label>
-                  <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter your Date of Birth (YYYY-MM-DD)">
-              </div>
-              <div class="form-group">
-                  <label for="location">Enter Your State:</label>
-                  <select id="stateDropdown" class="form-select" name="location">
-                    <option value="">Select State</option>
-                    <option value="Andaman And Nicobar Islands">Andaman And Nicobar Islands</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Puducherry">Puducherry</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                    
-                  </select>
-              </div>
-              <div style="padding:10px">
-                  <button type="submit" class="btn btn-success">Save Profile</button>
-              </div>
-          </form>
-
-          <!-- Display the profile data below the form -->
-        
-  
-        
-        </div>
-      </div>
   
   
 
@@ -522,10 +389,7 @@ h2 {
     
 
     <script>
-        document.getElementById("profile-link").addEventListener("click", function() {
-            document.getElementById("mySidebar").classList.toggle("open");
-          
-        });
+   
 
         function closeNav() {
             document.getElementById("mySidebar").classList.remove("open");
@@ -537,26 +401,7 @@ h2 {
         //     window.scrollTo({ top: 0, behavior: 'smooth' });
         // }
 
-        // Function to preview the uploaded image
-function previewImage(event) {
-    var reader = new FileReader();
-    reader.onload = function() {
-        var output = document.getElementById('profilePhoto');
-        output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-// Function to update the photo (you can extend this to send the image to the server)
-function updateProfilePhoto() {
-    var fileInput = document.getElementById('fileInput');
-    if (fileInput.files.length > 0) {
-        // Here you would send the image to the server using AJAX or a form submission
-        alert("Profile photo updated!");
-    } else {
-        alert("Please select a photo first.");
-    }
-}
+ 
 
 document.addEventListener('scroll', () => {
   const cards = document.querySelectorAll('.card');

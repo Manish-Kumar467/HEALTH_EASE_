@@ -5,14 +5,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Schedule</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css" />
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <style>
+        body{
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+        }
         /* Style to make the calendar occupy the full width of the screen */
+        /* Default navbar background */
+.navbar-collapse {
+    transition: background 0.3s ease; /* Smooth transition for the entire background property */
+}
+
+.navbar-collapse.show {
+    background: radial-gradient(circle, rgba(208, 247, 212, 0.5), rgba(168, 230, 224, 0.7));
+}
+
+
+.navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+
+}
+
+.profile-summary {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.profile-summary h3 {
+    margin-bottom: 10px;
+}
+
+.profile-summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.profile-summary strong {
+    font-weight: bold;
+}
+
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+.navbar .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: auto;
+}
+
+
+
+.container-fluid {
+background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+background-size: cover;
+height: 15vh;
+}
+
+.container-wrapper, .about-container, .footer-container {
+width: 80%; /* Consistent width for all containers */
+  max-width: 1200px; /* Optional: limit width for larger screens */
+margin: 20px auto; /* Center containers and add spacing */
+padding: 20px;
+  border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* About section container */
+
+
+
+
         .calendar-container {
             width: 100%;
             margin-top: 20px;
             max-width: 700px; /* Limits max width for a neat look */
             margin: 0 auto; /* Centers the calendar on the page */
         }
+        /* Style for the selected date in Flatpickr */
+.flatpickr-day.selected {
+  background-color: #00ffbf !important; /* Sets the background color */
+  border-color: #00ffbf !important;    /* Optional: Matches border color */
+  color: #ffffff !important;           /* Ensures text contrast */
+}
+
+
         /* Time blocks styling */
         .time-blocks {
             display: flex;
@@ -36,7 +192,7 @@
             transform: scale(1.05);
         }
         .time-block.selected {
-            background-color: #007bff;
+            background-color: #00ffbf;
             color: white;
         }
         #scheduled-appointment {
@@ -46,32 +202,101 @@
             border-radius: 5px;
         }
 
+        .parent{
+            display: flex;
+            flex-direction: column;
+            row-gap: 15px;
+            align-items: center;
+        }
+        button{
+            background-color:#4d7929;
+            width:20vw;
+        }
+form label {
+  font-weight: bold; /* Makes the text bold */
+  display: block; /* Ensures labels are on their own line */
+  margin-bottom: 5px; /* Adds spacing between the label and the input */
+}
+body {
+  background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+  margin: 0;
+  padding-top: 15vh; 
+  overflow-x: hidden;
+}
+
+
+
     </style>
 </head>
 <body>
-    <form action="/appointment_schedule" method="POST">
-        <!-- Calendar container div for showing Flatpickr calendar directly -->
-        <div class="calendar-container" id="calendar"></div>
-        <input type="hidden" id="appoint_date" name="appoint_date">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+                <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/views/profile" id="profile-link">Profile</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
+                    </li> -->
+    
+                        <li class="nav-item">
+                      <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+                </li>
 
+                
+                </ul>
+                <button class="btn btn-outline-success" type="submit">
+                    <a class="nav-link" href="/logout">LogOut</a>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <form action="/appointment_schedule" method="POST">
+        <div class="parent">
+            <label for="appoint_date">SELECT APPOINTMENT DATE:</label> 
+        <!-- Calendar container div for showing Flatpickr calendar directly -->
+        <div class="calendar-container calender" id="calendar"></div>
+        
+        <input type="hidden" id="appoint_date" name="appoint_date">
+        <label for="appoint_time time">SELECT APPOINTMENT TIME</label>
         <div class="form-group">
-            <label for="appoint_time">Choose the appointment time:</label>
+            
             <div class="time-blocks">
+                
                 <div class="time-block" data-time="8:30 A.M.">8:30 A.M.</div>
                 <div class="time-block" data-time="10:30 A.M.">10:30 A.M.</div>
                 <div class="time-block" data-time="4:00 P.M.">4:00 P.M.</div>
                 <div class="time-block" data-time="7:00 P.M.">7:00 P.M.</div>
             </div>
+            
             <input type="hidden" id="appoint_time" name="appoint_time">
         </div>
 
-        <button type="submit">Schedule Appointment</button>
+     
+        <button type="button" class="btn btn-success">Schedule Appointment</button>
     </form>
-
-    
-
+    </div>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     <script>
+          function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+            // document.body.classList.remove("sidebar-open");
+            // document.body.style.overflowX = "hidden"; 
+        }
         // Initialize the full-width calendar
         flatpickr("#calendar", {
             inline: true,          // Display calendar on page load
@@ -92,5 +317,7 @@
             });
         });
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

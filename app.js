@@ -80,9 +80,9 @@ app.get("/register", (req, res) => {
   res.render("register.ejs"); // Render register page
 });
 
-app.get("/views/dignose", (req, res) => {
-    res.render("dignose.ejs"); // or the appropriate rendering method
-});
+// app.get("/views/dignose", (req, res) => {
+//     res.render("dignose.ejs"); // or the appropriate rendering method
+// });
 
 app.get("/views/appointment", (req, res) => {
   res.render("appointment.ejs"); // or the appropriate rendering method
@@ -90,6 +90,12 @@ app.get("/views/appointment", (req, res) => {
 
 app.get("/views/heartDiagnose", (req, res) => {
   res.render("heartDiagnose.ejs");
+})
+app.get("/views/appointment", (req, res) => {
+  res.render("appointment.ejs");
+})
+app.get("/views/profile", (req, res) => {
+  res.render("profile.ejs");
 })
 
 app.get("/help", (req, res) => {
