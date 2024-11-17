@@ -271,7 +271,7 @@ app.post("/predict", (req, res) => {
 
   pythonProcess.stdout.on("data", (data) => {
     const prediction = data.toString().trim();
-    console.log(prediction);
+    console.log("Prediction from python to nodejs:",prediction);
     if(!responseSent){
       responseSent = true; // prevent sending second response
       // res.send({ prediction });

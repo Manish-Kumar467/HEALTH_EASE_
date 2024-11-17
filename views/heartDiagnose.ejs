@@ -31,12 +31,22 @@
         });
 
         const data = await response.json();
-        console.log("Data in frontend: "+ data);
-        console.log("data.prediction: "+ data.prediction);
+        // console.log("Data in frontend: "+ data);
+        // console.log("data.prediction: "+ data.prediction);
+        result.textContent = `Data in frontend: ${data}`;
+        
         if (response.ok) {
             // Handle the prediction based on number (0 or 1)
-            const predictionMessage = data.prediction === 1? "Heart Disease Detected" : "No Heart Disease";
-          // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+            // const predictionMessage = data.prediction === 1? "Heart Disease Detected" : "No Heart Disease";
+            // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+            if (data.prediction === 1) {
+            const predictionMessage = "Heart Disease Detected";
+            result.textContent = `Prediction: ${data.prediction} (${predictionMessage})`;
+            } else {
+            const predictionMessage = "No Heart Disease";
+            result.textContent = `Prediction: ${data.prediction} (${predictionMessage})`;
+            }
+
           alert(`Prediction done: ${predictionMessage}`);
           result.textContent = `Prediction: ${data.prediction}`;
         } else {

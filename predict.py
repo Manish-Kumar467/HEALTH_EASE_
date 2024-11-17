@@ -54,7 +54,7 @@ except Exception as e:
 try:
     prediction = model.predict(input_df)
     # Return prediction result
-    print(f"Prediction[0] from predict.py file: {prediction[0]}")  # Output 1 for disease, 0 for no disease
+    print(prediction[0])  # Output 1 for disease, 0 for no disease
 except Exception as e:
     print(f"Error making prediction: {e}")
     sys.exit(1)
