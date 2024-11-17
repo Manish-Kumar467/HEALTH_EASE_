@@ -248,8 +248,21 @@ h2 {
   width: 30%;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.doctor-description {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #666;
+    line-height: 1.5;
 }
 
 .card h3 {
@@ -270,10 +283,30 @@ h2 {
 
 /* Ensure the cards stack properly on smaller screens */
 @media (max-width: 768px) {
+  .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
   .card {
     width: 100%;
     margin-bottom: 20px;
   }
+}
+
+.bill-link {
+    margin-left: 10px; /* Add space between the "Bill" link and the "LogOut" button */
+}
+
+.bill-gif {
+    width: 30px; /* Adjust the width */
+    height: 30px; /* Adjust the height */
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Ensures the image fits well inside the circle */
+    transition: transform 0.3s ease-in-out; /* Optional: for smooth hover effects */
+}
+
+.bill-gif:hover {
+    transform: scale(1.1); /* Optional: make the GIF slightly larger on hover */
 }
 
 
@@ -292,32 +325,47 @@ h2 {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/start">
+                      <img src="../public/assets/icons/house.svg" alt="home" class="home">Home
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/views/profile" id="profile-link">Profile</a>
+                    <a class="nav-link active" href="/views/profile" id="profile-link">
+                      <img src="../public/assets/icons/person-circle.svg" alt="profile" class="profile">Profile
+                    </a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
                 </li> -->
 
                     <li class="nav-item">
-                  <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+                  <a class="nav-link active" href="/views/appointment">
+                    <img src="../public/assets/icons/calendar2-date.svg" alt="Calendar" class="calendar">
+                    Schedule appointment</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+                <a class="nav-link active" href="/views/heartDiagnose">
+                  <img src="../public/assets/icons/postcard-heart-fill.svg" alt="heart" class="heart">
+                  Heart Diagnose</a>
             </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#about-section">About</a>
+                    <a class="nav-link active" href="#about-section">
+                      <img src="../public/assets/icons/people-fill.svg" alt="about" class="about">
+                      About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#footer-section">Help</a>
+                    <a class="nav-link active" href="#footer-section">
+                      <img src="../public/assets/icons/question.svg" alt="help" class="help">
+                      Help</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/bill">
+                    <img src="../public/assets/icons/payment.gif" alt="Bill Gif" class="bill-gif">Payment
+                  </a>
+              </li>
             
             </ul>
-            <button class="btn btn-outline-success" type="submit">
-              <a class="nav-link" href="/bill">Billing</a>
-          </button>
+            
             <button class="btn btn-outline-success" type="submit">
                 <a class="nav-link" href="/logout">LogOut</a>
             </button>
@@ -375,6 +423,27 @@ h2 {
               <p>By analyzing user-inputted symptoms and comparing them against our extensive knowledge base, Healthease offers reliable potential diagnoses. As we continue to innovate, our commitment to expanding the spectrum of diagnosable diseases ensures that both patients and healthcare professionals have access to invaluable tools for effective health management.</p>
           </div>
       </div>
+  </div>
+
+  <div id="about-section" class="about-container">
+    <h2>OUR HOSPITAL STAFF</h2>
+    <div class="cards-container">
+      <div class="card">
+          <h3>Dr. John Smith</h3>
+          <p><img src="../public/assets/images/doctor4.png" alt="Dr. John Smith"></p>
+          <p class="doctor-description">Dr. John Smith is a renowned cardiologist with over 15 years of experience in diagnosing and treating heart diseases. He specializes in coronary artery disease and advanced heart failure management. His dedication to patient care and cutting-edge treatments has helped countless patients lead healthier lives.</p>
+        </div>
+      <div class="card">
+          <h3>Dr. Emily Watson</h3>
+          <p><img src="../public/assets/images/doctor6.png" alt="Dr. Emily Watson"></p>
+          <p class="doctor-description">Dr. Emily Watson is an experienced cardiologist focusing on heart rhythm disorders and preventive cardiology. With a patient-centric approach, Dr. Watson is committed to helping patients manage their heart health through personalized treatment plans and lifestyle modifications.</p>
+        </div>
+      <div class="card">
+          <h3>Dr. Robert Lee</h3>
+          <p><img src="../public/assets/images/doctor3.png" alt="Dr. Robert Lee"></p>
+          <p class="doctor-description">Dr. Robert Lee is an expert in interventional cardiology, specializing in catheter-based heart procedures. He is passionate about using minimally invasive techniques to treat heart disease, ensuring quicker recovery times for his patients.</p>
+        </div>
+  </div>
   </div>
   
 
