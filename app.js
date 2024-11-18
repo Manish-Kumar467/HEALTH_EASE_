@@ -270,7 +270,7 @@ app.post('/save-appointment', async (req, res) => {
       INSERT INTO appointment (user_id, appointment_date, appointment_time, room_num, bed_num, doctor_name, purpose) 
       VALUES ($1, $2, $3, $4, $5, $6, $7)
       ON CONFLICT (user_id) 
-      DO UPDATE SET appointment_date = $2, appointment_time = $3, room_num = $4, bed_num = $5, doctor_name = $6, doctor_name = $7
+      DO UPDATE SET appointment_date = $2, appointment_time = $3, room_num = $4, bed_num = $5, doctor_name = $6, purpose = $7
       
     `;
     await db.query(query, [userId, date, time, room, bed, doctor, purpose]);
