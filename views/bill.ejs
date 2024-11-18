@@ -272,6 +272,10 @@
     width: auto;
 }
 
+.navbar-toggler {
+    width: auto; /* Ensures the button only occupies its content width */
+    max-width: 50px; /* Optional: Restrict maximum width */
+}
 
 
 .container-fluid {
@@ -289,6 +293,9 @@ padding: 20px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.fullpage{
+    padding-top: 80px;
+}
     </style>
 </head>
 <body>
@@ -326,6 +333,7 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         </div>
     </nav>
 
+    <div class="fullpage">
 
     <h1>HopeHeart Medical Clinic</h1>
     <h2>Billing Page</h2>
@@ -373,6 +381,7 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         <div id="summaryContent"></div>
         <button id="printButton">Print Bill</button>
     </div>
+</div>
 
     <script>
         const rates = {
