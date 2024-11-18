@@ -390,7 +390,7 @@ h1{
             </div>
             
 
-            <button type="submit" class="btn">Schedule Appointment</button>
+            <button type="submit" id="generateappointment" class="btn">Schedule Appointment</button>
         </form>
         <div id="confirmation" hidden>
             <h3>Appointment Scheduled Successfully!</h3>
@@ -508,6 +508,30 @@ h1{
             //             alert('Failed to save Appointment information.');
             //         }
         });
+
+        document.getElementById('generateappointment').addEventListener('click', async () => {
+            const patient = document.getElementById('patient').value;
+            const purpose = document.getElementById('purpose').value;
+            const date = document.getElementById('appoint_date').value;
+            const time = document.getElementById('appoint_time').value;
+            const doctor = document.getElementById('doctor').value;
+            const room = document.getElementById('room').value;
+            // const bed = document.getElementById('bed').value;
+            const bed = selectedBedInput.value;
+
+            const response = await fetch('/appointment_schedule', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+            });
+
+            if (response.ok) {
+                alert('Appointment information saved successfully!');
+            } else {
+                alert('Failed to save appointment information.');
+            }
+        });
+
 
          
 

@@ -254,35 +254,35 @@ app.post('/save-bill', async (req, res) => {
 
 
 // Route to handle appointment saving 
-// app.post('/appointment_schedule', async (req, res) => {
-//   console.log(req.session.userId);
-//   if (!req.session.userId) {
-//     return res.status(401).send("Unauthorized");
-//   }
+app.post('/appointment_schedule', async (req, res) => {
+  console.log(req.session.userId);
+  if (!req.session.userId) {
+    return res.status(401).send("Unauthorized");
+  }
 
-//   // Parse and format the date of birth (dob) from the form input
-//   const { date, time, room, bed, doctor, purpose } = req.body;
-//   const userId = req.session.userId;
+  // Parse and format the date of birth (dob) from the form input
+  const { date, time, room, bed, doctor, purpose } = req.body;
+  const userId = req.session.userId;
 
-//   try {
-//     // Insert billing information into "bill" table
-//     const query = `
-//       INSERT INTO appointment (user_id, appointment_date, appointment_time, room_num, bed_num, doctor_name, purpose) 
-//       VALUES ($1, $2, $3, $4, $5, $6, $7)
-//       ON CONFLICT (user_id) 
-//       DO UPDATE SET appointment_date = $2, appointment_time = $3, room_num = $4, bed_num = $5, doctor_name = $6, purpose = $7
+  try {
+    // Insert billing information into "bill" table
+    const query = `
+      INSERT INTO appointment (user_id, appointment_date, appointment_time, room_num, bed_num, doctor_name, purpose) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      ON CONFLICT (user_id) 
+      DO UPDATE SET appointment_date = $2, appointment_time = $3, room_num = $4, bed_num = $5, doctor_name = $6, purpose = $7
       
-//     `;
-//     await db.query(query, [userId, date, time, room, bed, doctor, purpose]);
+    `;
+    await db.query(query, [userId, date, time, room, bed, doctor, purpose]);
 
-//     res.status(200).send({ message: 'Appointment information saved successfully!' });
-//     // res.render('bill.ejs'); 
-//     // res.redirect('/success'); // Redirect or send a success response
-//   } catch (error) {
-//     console.error("Error saving appointment information:", error);
-//     res.status(500).send("Failed to save Appointment information");
-//   }
-// });
+    res.status(200).send({ message: 'Appointment information saved successfully!' });
+    // res.render('bill.ejs'); 
+    // res.redirect('/success'); // Redirect or send a success response
+  } catch (error) {
+    console.error("Error saving appointment information:", error);
+    res.status(500).send("Failed to save Appointment information");
+  }
+});
 //
 // app.post('/appointment_schedule', async (req, res) => {
 //   if (!req.session.userId) {
