@@ -239,7 +239,7 @@
         });
 
         // Generate bill
-        document.getElementById('generateBill').addEventListener('click', () => {
+        document.getElementById('generateBill').addEventListener('click', async () => {
             const patientName = document.getElementById('patientName').value;
             const doctorName = document.getElementById('doctorName').value;
             const hoursStayed = +document.getElementById('hoursStayed').value || 0;
@@ -247,6 +247,16 @@
 
             // Calculate room cost
             const roomCost = hoursStayed * rates[roomType];
+
+            // Collect all medication details
+            const medications = [];
+            const rows_m = prescriptionTable.getElementsByTagName('tr');
+            Array.from(rows_m).forEach(row => {
+                const medicineInput = row.cells[0].getElementsByTagName('input')[0];
+                const medicine = medicineInput ? medicineInput.value.trim() : '';
+                if (medicine) medications.push(medicine);
+            });
+            const medicationCSV = medications.join(',');
 
             // Calculate medication cost
             let medicationCost = 0;
@@ -258,6 +268,19 @@
             });
 
             const totalAmount = roomCost + medicationCost;
+
+             // Send data to the backend
+            const response = await fetch('/save-bill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ hoursStayed, roomType, medication: medicationCSV, totalAmount }),
+            });
+
+            if (response.ok) {
+                alert('Billing information saved successfully!');
+            } else {
+                alert('Failed to save billing information.');
+            }
 
             // Update bill summary
             const summaryContent = `

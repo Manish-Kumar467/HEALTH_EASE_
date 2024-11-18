@@ -13,6 +13,7 @@ const axios = require('axios');
 const { spawn } = require("child_process");
 const { exec } = require("child_process");
 
+// const router = express.Router();
 
 dotenv.config();
 
@@ -217,6 +218,37 @@ app.post('/updateProfile', async (req, res) => {
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).send("An error occurred while updating the profile.");
+  }
+});
+
+// Route to handle bill saving 
+app.post('/save-bill', async (req, res) => {
+  console.log(req.session.userId);
+  if (!req.session.userId) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  // Parse and format the date of birth (dob) from the form input
+  const { hoursStayed, roomType, medication, totalAmount } = req.body;
+  const userId = req.session.userId;
+
+  try {
+    // Insert billing information into "bill" table
+    const query = `
+      INSERT INTO bill (user_id, hours_stayed, room_type, medication, total_amount) 
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT (user_id) 
+      DO UPDATE SET hours_stayed = $2, room_type = $3, medication = $4, total_amount = $5
+      
+    `;
+    await db.query(query, [userId, hoursStayed, roomType, medication, totalAmount]);
+
+    res.status(200).send({ message: 'Billing information saved successfully!' });
+    // res.render('bill.ejs'); 
+    // res.redirect('/success'); // Redirect or send a success response
+  } catch (error) {
+    console.error("Error saving billing information:", error);
+    res.status(500).send("Failed to save billing information");
   }
 });
 
