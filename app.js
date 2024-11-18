@@ -254,7 +254,7 @@ app.post('/save-bill', async (req, res) => {
 
 
 // Route to handle appointment saving 
-app.post('/save-appointment', async (req, res) => {
+app.post('/appointment_schedule', async (req, res) => {
   console.log(req.session.userId);
   if (!req.session.userId) {
     return res.status(401).send("Unauthorized");
@@ -284,42 +284,42 @@ app.post('/save-appointment', async (req, res) => {
   }
 });
 //
-app.post('/appointment_schedule', async (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).send("Unauthorized");
-  }
+// app.post('/appointment_schedule', async (req, res) => {
+//   if (!req.session.userId) {
+//     return res.status(401).send("Unauthorized");
+//   }
 
-  const userId = req.session.userId;
-  const { appoint_date: appointmentDate, appoint_time: appointmentTime } = req.body;
+//   const userId = req.session.userId;
+//   const { appoint_date: appointmentDate, appoint_time: appointmentTime } = req.body;
 
-  try {
-    const query = `
-      INSERT INTO info (user_id, appointment_date, appointment_time) 
-      VALUES ($1, $2, $3)
-      ON CONFLICT (user_id)
-      DO UPDATE SET appointment_date = $2, appointment_time = $3
-    `;
-    await db.query(query, [userId, appointmentDate, appointmentTime]);
+//   try {
+//     const query = `
+//       INSERT INTO info (user_id, appointment_date, appointment_time) 
+//       VALUES ($1, $2, $3)
+//       ON CONFLICT (user_id)
+//       DO UPDATE SET appointment_date = $2, appointment_time = $3
+//     `;
+//     await db.query(query, [userId, appointmentDate, appointmentTime]);
 
-    // Retrieve the updated appointment data
-    const result = await db.query(`
-      SELECT appointment_date, appointment_time
-      FROM info
-      WHERE user_id = $1`,
-      [userId]
-    );
+//     // Retrieve the updated appointment data
+//     const result = await db.query(`
+//       SELECT appointment_date, appointment_time
+//       FROM info
+//       WHERE user_id = $1`,
+//       [userId]
+//     );
 
-    // Initialize scheduledAppointment, even if no rows are returned
-    const scheduledAppointment = result.rows[0] || { appointment_date: null, appointment_time: null };
+//     // Initialize scheduledAppointment, even if no rows are returned
+//     const scheduledAppointment = result.rows[0] || { appointment_date: null, appointment_time: null };
 
 
-    // Render the form view with the scheduled appointment data
-    res.render('appointment', { scheduledAppointment });
-  } catch (error) {
-    console.error("Error scheduling appointment:", error);
-    res.status(500).send("An error occurred while scheduling the appointment.");
-  }
-});
+//     // Render the form view with the scheduled appointment data
+//     res.render('appointment', { scheduledAppointment });
+//   } catch (error) {
+//     console.error("Error scheduling appointment:", error);
+//     res.status(500).send("An error occurred while scheduling the appointment.");
+//   }
+// });
 
 
 app.post("/predict", (req, res) => {
