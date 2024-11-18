@@ -235,9 +235,9 @@ app.post('/save-bill', async (req, res) => {
   try {
     // Insert billing information into "bill" table
     const query = `
-      INSERT INTO bill ( hoursStayed, roomType, medication, totalAmount) 
-      VALUES ($2, $3, $4, $5)
-      WHERE user_id = $1
+      INSERT INTO bill (user_id, hoursStayed, roomType, medication, totalAmount) 
+      VALUES ($1, $2, $3, $4, $5)
+      
     `;
     await db.query(query, [userId, hoursStayed, roomType, medication, totalAmount]);
 
