@@ -337,6 +337,9 @@ h1{
             <label for="patient">Patient Name:</label>
             <input type="text" id="patient" name="patient" class="form-control" placeholder="Enter patient name">
 
+            <label for="purpose">Purpose of Appointment:</label>
+            <input type="text" id="purpose" name="purpose" class="form-control" placeholder="Enter purpose:">
+
             <label for="appoint_date">Select Appointment Date:</label>
             <div class="calendar-container" id="calendar"></div>
             <input type="hidden" id="appoint_date" name="appoint_date">
@@ -452,9 +455,10 @@ h1{
         // document.querySelector('form').addEventListener('submit', function (event) {
             
         // Handle form submission
-        document.getElementById('appointment-form').addEventListener('submit', function (event) {
+        document.getElementById('appointment-form').addEventListener('submit', async function (event) {
             event.preventDefault();
             const patient = document.getElementById('patient').value;
+            const purpose = document.getElementById('purpose').value;
             const date = document.getElementById('appoint_date').value;
             const time = document.getElementById('appoint_time').value;
             const doctor = document.getElementById('doctor').value;
@@ -466,6 +470,7 @@ h1{
             if (patient && date && time && doctor && room && bed) {
                 const confirmation = document.getElementById('confirmation');
                 document.getElementById('confirm-patient').textContent = patient;
+                document.getElementById('confirm-purpose').textContent = purpose;
                 document.getElementById('confirm-date').textContent = date;
                 document.getElementById('confirm-time').textContent = time;
                 document.getElementById('confirm-doctor').textContent = doctor;
@@ -483,11 +488,27 @@ h1{
                 // })
                 // .then(response => response.json())
                 // .then(data => console.log(data));
+                
             } else {
                 // event.preventDefault();
                 alert("Please fill in all fields before submitting.");
             }
+
+            // Send data to the backend
+            const response = await fetch('/save-appointment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+                    });
+
+                    if (response.ok) {
+                        alert('Appointment information saved successfully!');
+                    } else {
+                        alert('Failed to save Appointment information.');
+                    }
         });
+
+         
 
 
         const ctx = document.getElementById('appointmentChart').getContext('2d');
