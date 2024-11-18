@@ -9,7 +9,7 @@ showing all records to staff
 
 showing prediction in some fancy way (DONE)
 
-graph for different factors number of bed, appointment, for each time, made
+graph for different factors number of bed, appointment, for each time, made(DONE)
 
 make gif log and buttons (DONE)
 
