@@ -100,17 +100,40 @@ body{
  display: flex;
  flex-direction: column;
  justify-content: center;
-  width:50vw;
+  width:100vw;
   height:100vh;
+  padding-top:80px;
 }
 
-.previousdata{
-  /* background: radial-gradient(circle, #d0f7d4, #a8e6e0); */
+.profilephotoandbutton, form {
+  width: 50%; /* Set to 50% of the parent box */
+  margin: 0 auto; /* Center-align horizontally */
+  text-align: center; /* Center-align text */
+}
+form .form-group {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  align-items: flex-start; /* Align labels and inputs to the left */
+  margin-bottom: 15px; /* Add spacing between form groups */
+}
+
+form .form-group label {
+  margin-bottom: 5px; /* Space between label and input */
+  font-weight: bold; /* Make labels stand out */
+}
+
+form .form-group input,
+form .form-group select {
+  width: 100%; /* Make input/select fields stretch fully */
+}
+
+/* .previousdata{
+  background: radial-gradient(circle, #d0f7d4, #a8e6e0);
   
  width:50vw;
  height:100vh;
  
-}
+} */
 
 @media (max-width: 768px) {
     .fullpage {
@@ -251,6 +274,8 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 
 
+
+
   </style>
   <body>
 
@@ -373,9 +398,7 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         
         </div>
       </div>
-      <div class="previousdata">
-        <h1>THIS IS YOUR PREVIOUS DATA</h1>
-   </div>
+ 
 
       <script>
 
