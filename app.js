@@ -374,16 +374,31 @@ app.post("/predict", async (req, res) => {
     }
   });
 
-  pythonProcess.stdout.on("data", (data) => {
+  pythonProcess.stdout.on("data", async (data) => {
     const prediction = data.toString().trim();
     console.log("Prediction from python to nodejs:",prediction);
     if(!responseSent){
       responseSent = true; // prevent sending second response
       // res.send({ prediction });
       if(prediction === "1") {
-        
+            const query = `
+          INSERT INTO diagnose (user_id, predicted_disease) 
+          VALUES ($1, $2)
+          ON CONFLICT (user_id) 
+          DO UPDATE SET predicted_disease = $2
+          
+        `;
+        await db.query(query, [userId, prediction]);
         res.send({ prediction: 1 }); // sending 1 for heart disease detected   
       } else {
+        const query = `
+          INSERT INTO diagnose (user_id, predicted_disease) 
+          VALUES ($1, $2)
+          ON CONFLICT (user_id) 
+          DO UPDATE SET predicted_disease = $2
+          
+        `;
+        await db.query(query, [userId, prediction]);
         res.send({ prediction: 0 }); // sending 0 for no heart disease
       }
     }
