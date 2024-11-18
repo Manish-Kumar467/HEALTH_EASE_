@@ -460,7 +460,7 @@ p#result {
       <textarea id="features" name="features" rows="4" readonly></textarea>
   
       <!-- Submit Button -->
-      <button type="submit">Predict</button>
+      <button type="submit" id="generatePrediction">Predict</button>
     </form>
   
     <p id="result"></p>
@@ -589,6 +589,8 @@ p#result {
         console.error(err);
       }
     });
+
+    
     function closeNav() {
             document.getElementById("mySidebar").classList.remove("open");
             // document.body.classList.remove("sidebar-open");
