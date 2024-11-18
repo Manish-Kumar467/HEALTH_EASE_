@@ -322,7 +322,7 @@ app.post('/appointment_schedule', async (req, res) => {
 // });
 
 
-app.post("/predict", (req, res) => {
+app.post("/predict", async (req, res) => {
   const { features } = req.body; // Expect an array of features
   if (!features || !Array.isArray(features)) {
     return res.status(400).send({ error: "Invalid input data" });
@@ -330,6 +330,37 @@ app.post("/predict", (req, res) => {
 
   console.log("Features received:", features); // Log the features
 
+  //
+  console.log(req.session.userId);
+  if (!req.session.userId) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  // Parse and format the date of birth (dob) from the form input
+  
+  const userId = req.session.userId;
+
+  try {
+    // Insert billing information into "bill" table
+    const query = `
+      INSERT INTO diagnose (user_id, symptoms) 
+      VALUES ($1, $2)
+      ON CONFLICT (user_id) 
+      DO UPDATE SET symptoms = $2
+      
+    `;
+    await db.query(query, [userId, features]);
+
+    // res.status(200).send({ message: 'Billing information saved successfully!' });
+    // res.render('bill.ejs'); 
+    // res.redirect('/success'); // Redirect or send a success response
+  } catch (error) {
+    console.error("Error saving diagnose information:", error);
+    // res.status(500).send("Failed to save billing information");
+  }
+
+
+  //
   // Spawn Python process
   const pythonProcess = spawn("python3", ["predict.py", ...features]); // ..feature? // 
 
@@ -343,15 +374,31 @@ app.post("/predict", (req, res) => {
     }
   });
 
-  pythonProcess.stdout.on("data", (data) => {
+  pythonProcess.stdout.on("data", async (data) => {
     const prediction = data.toString().trim();
     console.log("Prediction from python to nodejs:",prediction);
     if(!responseSent){
       responseSent = true; // prevent sending second response
       // res.send({ prediction });
       if(prediction === "1") {
+            const query = `
+          INSERT INTO diagnose (user_id, predicted_disease) 
+          VALUES ($1, $2)
+          ON CONFLICT (user_id) 
+          DO UPDATE SET predicted_disease = $2
+          
+        `;
+        await db.query(query, [userId, prediction]);
         res.send({ prediction: 1 }); // sending 1 for heart disease detected   
       } else {
+        const query = `
+          INSERT INTO diagnose (user_id, predicted_disease) 
+          VALUES ($1, $2)
+          ON CONFLICT (user_id) 
+          DO UPDATE SET predicted_disease = $2
+          
+        `;
+        await db.query(query, [userId, prediction]);
         res.send({ prediction: 0 }); // sending 0 for no heart disease
       }
     }

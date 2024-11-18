@@ -343,7 +343,7 @@ h1{
     <div class="container">
         <h1>Schedule Your Appointment</h1>
         <!-- <form action="/appointment_schedule" method="POST"> -->
-            <form id="appointment-form" action="/appointment_schedule" method="POST">
+            <form id="appointment-form" >
             <!-- Calendar -->
             <label for="patient">Patient Name:</label>
             <input type="text" id="patient" name="patient" class="form-control" placeholder="Enter patient name">
@@ -404,12 +404,13 @@ h1{
             </div>
             
 
-            <button type="submit" class="btn">Schedule Appointment</button>
+            <button type="submit" id="generateappointment" class="btn">Schedule Appointment</button>
         </form>
         <div id="confirmation" hidden>
             <h3>Appointment Scheduled Successfully!</h3>
             <p>
                 <strong>Patient:</strong> <span id="confirm-patient"></span><br>
+                <strong>Purpose:</strong> <span id="confirm-purpose"></span><br>
                 <strong>Doctor:</strong> <span id="confirm-doctor"></span><br>
                 <strong>Date:</strong> <span id="confirm-date"></span><br>
                 <strong>Time:</strong> <span id="confirm-time"></span><br>
@@ -469,7 +470,7 @@ h1{
         // document.querySelector('form').addEventListener('submit', function (event) {
             
         // Handle form submission
-        document.getElementById('appointment-form').addEventListener('submit', async function (event) {
+        document.getElementById('appointment-form').addEventListener('submit', function (event) {
             event.preventDefault();
             const patient = document.getElementById('patient').value;
             const purpose = document.getElementById('purpose').value;
@@ -509,18 +510,42 @@ h1{
             }
 
             // Send data to the backend
-            const response = await fetch('/appointment_schedule', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
-                    });
+            // const response = await fetch('/appointment_schedule', {
+            //             method: 'POST',
+            //             headers: { 'Content-Type': 'application/json' },
+            //             body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+            //         });
 
-                    if (response.ok) {
-                        alert('Appointment information saved successfully!');
-                    } else {
-                        alert('Failed to save Appointment information.');
-                    }
+            //         if (response.ok) {
+            //             alert('Appointment information saved successfully!');
+            //         } else {
+            //             alert('Failed to save Appointment information.');
+            //         }
         });
+
+        document.getElementById('generateappointment').addEventListener('click', async () => {
+            const patient = document.getElementById('patient').value;
+            const purpose = document.getElementById('purpose').value;
+            const date = document.getElementById('appoint_date').value;
+            const time = document.getElementById('appoint_time').value;
+            const doctor = document.getElementById('doctor').value;
+            const room = document.getElementById('room').value;
+            // const bed = document.getElementById('bed').value;
+            const bed = selectedBedInput.value;
+
+            const response = await fetch('/appointment_schedule', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+            });
+
+            if (response.ok) {
+                alert('Appointment information saved successfully!');
+            } else {
+                alert('Failed to save appointment information.');
+            }
+        });
+
 
          
 
